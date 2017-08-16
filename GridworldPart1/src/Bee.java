@@ -23,29 +23,30 @@ import info.gridworld.grid.Location;
 import java.awt.Color;
 
 /**
- * A <code>Bug</code> is an actor that can move and turn. It drops flowers as it
- * moves. <br />
- * The implementation of this class is testable on the AP CS A and AB exams.
+ * A <code>Bee</code> is an actor that can move and turn. It only moves onto
+ * tiles with flowers on them. <br />
+ * Please note <code>./Bee.gif</code> is online clipart
  */
-public class Bug extends Actor {
+public class Bee extends Actor {
 
 	private Color Original;
+	private Actor lastLoc;
 
 	/**
-	 * Constructs a red bug.
+	 * Constructs a red bee.
 	 */
-	public Bug() {
-		setColor(Original = Color.BLUE);
+	public Bee() {
+		setColor(Original = Color.YELLOW);
 	}
 
 	/**
-	 * Constructs a bug of a given color.
+	 * Constructs a bee of a given color.
 	 * 
-	 * @param bugColor
-	 *            the color for this bug
+	 * @param beeColor
+	 *            the color for this bee
 	 */
-	public Bug(Color bugColor) {
-		setColor(Original = bugColor);
+	public Bee(Color beeColor) {
+		setColor(Original = beeColor);
 	}
 
 	/**
@@ -66,15 +67,14 @@ public class Bug extends Actor {
 	}
 
 	/**
-	 * Turns the bug 90 degrees to the right without changing its location.
+	 * Turns the bee 90 degrees to the right without changing its location.
 	 */
 	public void turn() {
 		setDirection(getDirection() + Location.RIGHT);
 	}
 
 	/**
-	 * Moves the bug forward, putting a flower into the location it previously
-	 * occupied.
+	 * Moves the bee forward
 	 */
 	public void move() {
 		Grid<Actor> gr = getGrid();
@@ -82,19 +82,22 @@ public class Bug extends Actor {
 			return;
 		Location loc = getLocation();
 		Location next = loc.getAdjacentLocation(getDirection());
-		if (gr.isValid(next))
+		if (gr.isValid(next)) {
+			Actor tmp = gr.get(next);
+			gr.remove(next);
 			moveTo(next);
-		else
+			if (this.lastLoc != null)
+				gr.put(loc, this.lastLoc);
+			this.lastLoc = tmp;
+		} else
 			removeSelfFromGrid();
-		Flower flower = new Flower(getColor());
-		flower.putSelfInGrid(gr, loc);
 	}
 
 	/**
-	 * Tests whether this bug can move forward into a location that is empty or
-	 * contains a flower.
+	 * Tests whether this bee can move forward into a location that contains a
+	 * flower.
 	 * 
-	 * @return true if this bug can move.
+	 * @return true if this bee can move.
 	 */
 	public boolean canMove() {
 		Grid<Actor> gr = getGrid();
@@ -103,6 +106,8 @@ public class Bug extends Actor {
 		Location loc = getLocation();
 		Location next = loc.getAdjacentLocation(getDirection());
 		if (!gr.isValid(next))
+			return false;
+		if (!(gr.get(next) instanceof Flower))
 			return false;
 		Actor neighbor = gr.get(next);
 		return (neighbor == null) || (neighbor instanceof Flower);
