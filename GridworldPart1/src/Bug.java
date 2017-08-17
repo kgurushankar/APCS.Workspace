@@ -29,13 +29,13 @@ import java.awt.Color;
  */
 public class Bug extends Actor {
 
-	private Color Original;
+	private Color original;
 
 	/**
 	 * Constructs a red bug.
 	 */
 	public Bug() {
-		setColor(Original = Color.BLUE);
+		setColor(original = Color.BLUE);
 	}
 
 	/**
@@ -45,7 +45,7 @@ public class Bug extends Actor {
 	 *            the color for this bug
 	 */
 	public Bug(Color bugColor) {
-		setColor(Original = bugColor);
+		setColor(original = bugColor);
 	}
 
 	/**
@@ -60,7 +60,7 @@ public class Bug extends Actor {
 		} else {
 			turn();
 			if (canMove()) {
-				super.setColor(Original);
+				super.setColor(original);
 			}
 		}
 	}
@@ -111,6 +111,7 @@ public class Bug extends Actor {
 	}
 
 	public void setColor(Color newColor) {
-		super.setColor(Original = newColor);
+		original = newColor;
+		super.setColor(original);
 	}
 }

@@ -1,3 +1,4 @@
+
 /* 
  * AP(r) Computer Science GridWorld Case Study:
  * Copyright(c) 2005-2006 Cay S. Horstmann (http://horstmann.com)
@@ -25,14 +26,12 @@ import info.gridworld.actor.Rock;
  * BoxBugRunner (in the boxBug folder) for an example. <br />
  * This class is not tested on the AP CS A and AB exams.
  */
-public class BugRunner
-{
-    public static void main(String[] args)
-    {
-        ActorWorld world = new ActorWorld();
-        world.add(new Bug());
-        world.add(new Bee());
-        world.add(new Rock());
-        world.show();
-    }
+public class BugRunner {
+	public static void main(String[] args) {
+		ActorWorld world = new ActorWorld();
+		world.add(new Bug());
+		world.add(new Bee());
+		world.add(new Rock());
+		world.show();
+	}
 }

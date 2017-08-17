@@ -107,12 +107,10 @@ public class Bee extends Actor {
 		Location next = loc.getAdjacentLocation(getDirection());
 		if (!gr.isValid(next))
 			return false;
-		if (!(gr.get(next) instanceof Flower))
-			return false;
 		Actor neighbor = gr.get(next);
-		return (neighbor == null) || (neighbor instanceof Flower);
-		// ok to move into empty location or onto flower
-		// not ok to move onto any other actor
+		return (neighbor instanceof Flower);
+		// ok to move onto flower
+		// not ok to move onto any actor
 	}
 
 	public void setColor(Color newColor) {
