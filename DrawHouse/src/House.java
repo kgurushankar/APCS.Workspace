@@ -3,8 +3,10 @@ import processing.core.PShape;
 
 public class House implements Drawable {
 	private PShape frame, roof, window, door;
+	private float size;
 
 	public House(PApplet applet) {
+		size = 1f;
 		frame = applet.createShape();
 		frame.beginShape();
 		frame.fill(204);
@@ -40,13 +42,31 @@ public class House implements Drawable {
 	}
 
 	public void draw(PApplet applet, int x, int y) {
-		applet.shape(frame, x, 100 + y);
-		applet.shape(roof, 150 + x, y);
-		applet.shape(window, 50 + x, 125 + y);
-		applet.shape(window, 200 + x, 125 + y);
-		applet.shape(door, 125 + x, 175 + y);
-		applet.line(x, 250 + y, 300 + x, 250 + y);
+		applet.pushMatrix();
+
+		applet.translate(x, y);
+		applet.scale(size);
+		applet.shape(frame, 0, 100);
+		applet.shape(roof, 150, 0);
+		applet.shape(window, 50, 125);
+		applet.shape(window, 200, 125);
+		applet.shape(door, 125, 175);
+		applet.line(0, 250, 300, 250);
+
+		applet.popMatrix();
 
 	}
 
+	@Override
+	public void changeSize(float size) {
+		this.size = size;
+
+	}
+
+	public void incrementSize(float size) {
+		if (this.size + size > 0f) {
+			this.size += size;
+		}
+
+	}
 }
