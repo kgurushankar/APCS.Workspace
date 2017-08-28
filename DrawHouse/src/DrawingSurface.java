@@ -27,22 +27,32 @@ public class DrawingSurface extends PApplet {
 	}
 
 	public void keyPressed() {
-		if (key == CODED) {
-			if (keyCode == UP) {
-				coord[1][1] -= 10;
-			} else if (keyCode == DOWN) {
-				coord[1][1] += 10;
-			} else if (keyCode == LEFT) {
-				coord[1][0] -= 10;
-			} else if (keyCode == RIGHT) {
-				coord[1][0] += 10;
-			} else if (keyCode == KeyEvent.VK_PAGE_UP) {
-				house.incrementSize(.1f);
-			} else if (keyCode == KeyEvent.VK_PAGE_DOWN) {
-				house.incrementSize(-0.1f);
-			}
-		} else {
-
+		//If numpad is off, then movement is for the person only mouse also works for 
+		if (keyCode == UP) {
+			coord[1][1] -= 10;
+		} else if (keyCode == DOWN) {
+			coord[1][1] += 10;
+		} else if (keyCode == LEFT) {
+			coord[1][0] -= 10;
+		} else if (keyCode == RIGHT) {
+			coord[1][0] += 10;
+		} else if (keyCode == KeyEvent.VK_PAGE_UP) {
+			house.incrementSize(.1f);
+		} else if (keyCode == KeyEvent.VK_PAGE_DOWN) {
+			house.incrementSize(-0.1f);
+		} else if (keyCode == KeyEvent.VK_NUMPAD8) { // up
+			coord[0][1] -= 10;
+		} else if (keyCode == KeyEvent.VK_NUMPAD2) {// down
+			coord[0][1] += 10;
+		} else if (keyCode == KeyEvent.VK_NUMPAD4) {// left
+			coord[0][0] -= 10;
+		} else if (keyCode == KeyEvent.VK_NUMPAD6) {// right
+			coord[0][0] += 10;
 		}
+	}
+ 
+	public void mouseClicked() {
+		coord[0][0] = ((mouseX + 5) / 10) * 10;
+		coord[0][1] = ((mouseY + 5) / 10) * 10;
 	}
 }
