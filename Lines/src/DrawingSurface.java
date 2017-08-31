@@ -1,72 +1,75 @@
 
 import processing.core.PApplet;
 
-
 public class DrawingSurface extends PApplet {
 
 	private Line l1, l2;
-	
+
 	public DrawingSurface() {
 		l1 = null;
 		l2 = null;
 	}
-	
-	// The statements in the setup() function 
+
+	// The statements in the setup() function
 	// execute once when the program begins
 	public void setup() {
 
 	}
-	
-	// The statements in draw() are executed until the 
-	// program is stopped. Each statement is executed in 
-	// sequence and after the last line is read, the first 
+
+	// The statements in draw() are executed until the
+	// program is stopped. Each statement is executed in
+	// sequence and after the last line is read, the first
 	// line is executed again.
-	public void draw() { 
-		background(255);   // Clear the screen with a white background
-		
+	public void draw() {
+		background(255); // Clear the screen with a white background
+
 		if (l1 != null) {
-			stroke(255,0,0);
+			stroke(255, 0, 0);
 			l1.draw(this);
 		}
 		if (l2 != null) {
-			stroke(0,255,0);
+			stroke(0, 255, 0);
 			l2.draw(this);
 		}
-		
+
 		if (l1 != null && l2 != null) {
-			boolean intersect = l1.intersects(l2);
+			boolean intersect;
+			float[] point = l1.intersects(l2);
+			if (point[0] == -1f) {
+				intersect = false;
+
+			} else {
+				intersect = true;
+				try {
+					stroke(0, 0, 255);
+					strokeWeight(5);
+					fill(255);
+					ellipse(point[0], point[1], 10, 10);
+
+				} catch (Exception e) {
+
+				}
+				strokeWeight(1);
+			}
 			fill(0);
 			textSize(30);
 			textAlign(CENTER);
-			text(intersect+"", width/2, 50);
+			text(intersect + "", width / 2, 50);
 		}
 	}
-	
-	
+
 	public void mousePressed() {
 		if (mouseButton == LEFT) {
-			l1 = new Line(mouseX,mouseY,mouseX,mouseY);
+			l1 = new Line(mouseX, mouseY, mouseX, mouseY);
 		} else if (mouseButton == RIGHT)
-			l2 = new Line(mouseX,mouseY,mouseX,mouseY);
+			l2 = new Line(mouseX, mouseY, mouseX, mouseY);
 	}
-	
-	
+
 	public void mouseDragged() {
 		if (mouseButton == LEFT) {
-			l1.setPoint2(mouseX,mouseY);
+			l1.setPoint2(mouseX, mouseY);
 		} else if (mouseButton == RIGHT)
-			l2.setPoint2(mouseX,mouseY);
+			l2.setPoint2(mouseX, mouseY);
 	}
-	
-	
+
 }
-
-
-
-
-
-
-
-
-
-
