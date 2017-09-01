@@ -18,7 +18,7 @@ public class Line {
 	}
 
 	/**
-	 * @return[-1] if there is no intersection point or [x,y] if there is a point
+	 * @return [-1] if there is no intersection point or [x,y] if there is a point (both are float arrays)
 	 */
 	public float[] intersects(Line l2) {
 		float x1 = this.points[0][0];
@@ -41,6 +41,10 @@ public class Line {
 				return new float[] { x, y };
 			} else {
 				return new float[] { -1f };
+			}
+			//This needed??
+			if (y == Float.POSITIVE_INFINITY || y == Float.NEGATIVE_INFINITY || x == Float.POSITIVE_INFINITY || x == Float.NEGATIVE_INFINITY){
+				return new float[] { -1f }; // This is a BS case too (Div by 0)
 			}
 		} catch (Exception e) {
 			return new float[] { -1f };
