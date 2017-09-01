@@ -43,7 +43,7 @@ public class Line {
 				return new float[] { -1f };
 			}
 			//This needed??
-			if (y == Float.POSITIVE_INFINITY || y == Float.NEGATIVE_INFINITY || x == Float.POSITIVE_INFINITY || x == Float.NEGATIVE_INFINITY){
+			if (y == Float.POSITIVE_INFINITY || y == Float.NEGATIVE_INFINITY || y == Float.NaN || x == Float.NaN || x == Float.POSITIVE_INFINITY || x == Float.NEGATIVE_INFINITY){
 				return new float[] { -1f }; // This is a BS case too (Div by 0)
 			}
 		} catch (Exception e) {
