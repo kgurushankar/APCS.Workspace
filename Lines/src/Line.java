@@ -50,6 +50,10 @@ public class Line {
 			return new float[] { -1f };
 		}
 	}
+	
+	public boolean doesIntersect(Line l2){
+		return this.intersects(l2).length==2;
+	}
 
 	public void setPoint2(float mouseX, float mouseY) {
 		points[1][0] = mouseX;
