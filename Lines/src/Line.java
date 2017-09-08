@@ -30,21 +30,21 @@ public class Line {
 		float x4 = l2.points[1][0];
 		float y4 = l2.points[1][1];
 
-		try {
+		float x = ((x1 * y2 - y1 * x2) * (x3 - x4) - (x1 - x2) * (x3 * y4 - y3 * x4))
+				/ ((x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4));
+		float y = ((x1 * y2 - y1 * x2) * (y3 - y4) - (y1 - y2) * (x3 * y4 - y3 * x4))
+				/ ((x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4));
 
-			float x = ((x1 * y2 - y1 * x2) * (x3 - x4) - (x1 - x2) * (x3 * y4 - y3 * x4))
-					/ ((x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4));
-			float y = ((x1 * y2 - y1 * x2) * (y3 - y4) - (y1 - y2) * (x3 * y4 - y3 * x4))
-					/ ((x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4));
-
-			if (this.contains(x, y) && l2.contains(x, y)) {
-				return new float[] { x, y };
-			} else {
-				return new float[] { -1f };
-			}
-		} catch (Exception e) {
+		if (x == Float.NaN || y == Float.NaN) {
 			return new float[] { -1f };
 		}
+
+		if (this.contains(x, y) && l2.contains(x, y)) {
+			return new float[] { x, y };
+		} else {
+			return new float[] { -1f };
+		}
+
 	}
 
 	public void setPoint2(float mouseX, float mouseY) {
