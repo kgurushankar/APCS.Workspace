@@ -55,4 +55,25 @@ public class DrawingSurface extends PApplet {
 		coord[0][0] = ((mouseX + 5) / 10) * 10;
 		coord[0][1] = ((mouseY + 5) / 10) * 10;
 	}
+	
+	private static boolean touching(PShape one, PShape two){
+		for (int i = 0; i < one.getVertexCount(); i++){
+			for (int j = 0; j < two.getVertexCount(); j++){
+				float[] p1 = one.getVertex(i).array();
+				float[] p2 = one.getVertex(i+1).array();
+				Line x = new Line(p1[0],p1[1],p2[0],p2[1]);
+				float[] p3 = one.getVertex(i).array();
+				float[] p4 = one.getVertex(i+1).array();
+				Line y = new Line(p3[0],p3[1],p4[0],p4[1]);
+				if (x.doesIntersect(y)){
+					return true;
+				}
+			}
+		}
+		//Add case for the closing line (last to first vertex is never checked above)
+		return false;
+	}
+	
+	private static boolean inside(Drawable one,Drawable two){
+	}
 }
