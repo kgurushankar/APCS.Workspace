@@ -5,13 +5,13 @@ public class Person extends Drawable {
 	private int headshape;
 	private boolean newHead;
 	private PShape head;
-	private float size;
+	private short wetness;
 
 	public Person(PApplet applet, int x, int y, int headshape) {
-		super(x, y);
+		super(x, y, true, new Line(x, y, x + 25, y + 75));
 		this.headshape = headshape;
 		head = polygon(applet, 25, headshape);
-		size = 1f;
+		wetness = 0;
 	}
 
 	public Person(PApplet applet, int x, int y) {
@@ -26,6 +26,7 @@ public class Person extends Drawable {
 			newHead = false;
 		}
 		applet.scale(0.5f);
+		applet.color(255 - wetness, 255 - wetness, 255);
 		applet.shape(head, 25, 25);
 		applet.line(25, 50, 25, 125);
 		applet.line(25, 125, 50, 150);
@@ -53,19 +54,5 @@ public class Person extends Drawable {
 	public void changeHeadshape(int headshape) {
 		this.headshape = headshape;
 		newHead = true;
-	}
-
-	@Override
-	public void changeSize(float size) {
-		this.size = size;
-
-	}
-
-	@Override
-	public void incrementSize(float size) {
-		if (this.size + size > 0f) {
-			this.size += size;
-		}
-
 	}
 }

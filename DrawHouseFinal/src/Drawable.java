@@ -1,13 +1,19 @@
+
 import processing.core.PApplet;
 
 public abstract class Drawable {
+	public static int GRAVITY = -1;
 	private int x, y;
 	private float size;
+	private boolean gravity;
+	private float v;
+	private Line contact;
 
-	public Drawable(int x, int y) {
+	public Drawable(int x, int y, boolean gravity, Line contact) {
 		this.x = x;
 		this.y = y;
 		this.size = 1f;
+		this.contact = contact;
 	}
 
 	public void draw(PApplet applet) {
@@ -27,6 +33,8 @@ public abstract class Drawable {
 	public void incrementSize(float size) {
 		if (this.size + size > 0f) {
 			this.size += size;
+		} else {
+			throw new IllegalArgumentException("Final size must be > 0");
 		}
 	}
 
@@ -38,5 +46,20 @@ public abstract class Drawable {
 	public void moveTo(int x, int y) {
 		this.x = x;
 		this.y = y;
+	}
+
+	public void fall() {
+		if (gravity) {
+			v += GRAVITY;
+			y += v;
+		}
+	}
+
+	public void setLine(Line l) {
+		this.contact = l;
+	}
+
+	public boolean touching(Drawable other) {
+		return this.contact.doesIntersect(other.contact);
 	}
 }

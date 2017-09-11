@@ -1,9 +1,11 @@
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import processing.core.PApplet;
 
 public class DrawingSurface extends PApplet {
-	private Drawable house, person;
+	private Drawable house, person, ground;
+	private ArrayList<Rain> rain = new ArrayList<Rain>();
 	private final boolean maintainAspectRatio = true;
 
 	public void setup() {
