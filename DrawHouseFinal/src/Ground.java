@@ -11,7 +11,7 @@ public class Ground extends Drawable {
 		applet.translate(x, y);
 		applet.scale(size);
 		applet.line(0, 0, applet.width, 0);
-
+		applet.popMatrix();
 	}
 
 	public Line getLocation(PApplet applet) {

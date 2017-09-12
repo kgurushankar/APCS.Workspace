@@ -10,9 +10,9 @@ public class DrawingSurface extends PApplet {
 	private int tick, gap;
 
 	public void setup() {
-		house = new House(this, 0, 0);
+		house = new House(this, 100, 100);
 		person = new Person(this, 0, 0);
-		ground = new Ground(height - 100);
+		ground = new Ground(350);
 	}
 
 	public void draw() {
@@ -43,9 +43,7 @@ public class DrawingSurface extends PApplet {
 	public void keyPressed() {
 		// If numpad is off, then movement is for the person only mouse also works for
 		if (keyCode == UP) {
-			person.move(0, -10);
-		} else if (keyCode == DOWN) {
-			person.move(0, 10);
+			((Person) person).jump(this,(Ground) ground);
 		} else if (keyCode == LEFT) {
 			person.move(-10, 0);
 		} else if (keyCode == RIGHT) {

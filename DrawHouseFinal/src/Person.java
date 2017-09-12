@@ -61,16 +61,18 @@ public class Person extends Drawable {
 	}
 
 	public void fall(PApplet applet, Ground ground) {
-		if (ground.getLocation(applet).doesIntersect(new Line(x, y, x + 50, y))) {
+		//System.out.println(v);
+		if (ground.getLocation(applet).doesIntersect(new Line(x, y, x + 25, y+75))) {
 		} else {
 			this.y += v;
 			this.v += a;
-			System.out.println(y + "  " + v + "  " + a + "  " + "FALL");
 		}
 
 	}
 
-	public void jump() {
-		this.v = 40;
+	public void jump(DrawingSurface applet, Ground ground) {
+		if (ground.getLocation(applet).doesIntersect(new Line(x, y, x + 25, y+75))) {
+		this.v = -10;
+		this.y -=10;}
 	}
 }

@@ -59,6 +59,9 @@ public class Line {
 
 	}
 
+	public String toString() {
+		return points[0][0]+", "+points[0][1]+" to "+points[1][0]+", "+points[1][1];
+	}
 	private boolean contains(float x, float y) {
 		return inRange(x, points[0][0], points[1][0]) && inRange(y, points[0][1], points[1][1]);
 	}
@@ -66,4 +69,6 @@ public class Line {
 	private boolean inRange(float x, float points2, float points3) {
 		return ((x >= points2 && x <= points3) || (x <= points2 && x >= points3));
 	}
+	
+	
 }
