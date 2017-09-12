@@ -6,9 +6,11 @@ public class Person extends Drawable {
 	private boolean newHead;
 	private PShape head;
 	private short wetness;
+	private static final float a = 9.81f / 30;
+	private float v = 0;
 
 	public Person(PApplet applet, int x, int y, int headshape) {
-		super(x, y, true, new Line(x, y, x + 25, y + 75));
+		super(x, y, true);
 		this.headshape = headshape;
 		head = polygon(applet, 25, headshape);
 		wetness = 0;
@@ -20,7 +22,9 @@ public class Person extends Drawable {
 
 	@Override
 	public void draw(PApplet applet) {
-		super.draw(applet);
+		applet.pushMatrix();
+		applet.translate(x, y);
+		applet.scale(size);
 		if (newHead) {
 			head = polygon(applet, 25, headshape);
 			newHead = false;
@@ -54,5 +58,19 @@ public class Person extends Drawable {
 	public void changeHeadshape(int headshape) {
 		this.headshape = headshape;
 		newHead = true;
+	}
+
+	public void fall(PApplet applet, Ground ground) {
+		if (ground.getLocation(applet).doesIntersect(new Line(x, y, x + 50, y))) {
+		} else {
+			this.y += v;
+			this.v += a;
+			System.out.println(y + "  " + v + "  " + a + "  " + "FALL");
+		}
+
+	}
+
+	public void jump() {
+		this.v = 40;
 	}
 }

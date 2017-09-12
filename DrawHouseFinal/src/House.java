@@ -5,8 +5,8 @@ public class House extends Drawable {
 	private PShape frame, roof, window, door;
 
 	public House(PApplet applet, int x, int y) {
-		super(x, y, false, new Line(x, y + 100, x + 300, y + 100));
-		
+		super(x, y, false);
+
 		frame = applet.createShape();
 		frame.beginShape();
 		frame.fill(204);
@@ -42,7 +42,9 @@ public class House extends Drawable {
 	}
 
 	public void draw(PApplet applet) {
-		super.draw(applet);
+		applet.pushMatrix();
+		applet.translate(x, y);
+		applet.scale(size);
 		applet.shape(frame, 0, 100);
 		applet.shape(roof, 150, 0);
 		applet.shape(window, 50, 125);

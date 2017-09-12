@@ -7,10 +7,12 @@ public class DrawingSurface extends PApplet {
 	private Drawable house, person, ground;
 	private ArrayList<Rain> rain = new ArrayList<Rain>();
 	private final boolean maintainAspectRatio = true;
+	private int tick, gap;
 
 	public void setup() {
 		house = new House(this, 0, 0);
 		person = new Person(this, 0, 0);
+		ground = new Ground(height - 100);
 	}
 
 	public void draw() {
@@ -23,6 +25,18 @@ public class DrawingSurface extends PApplet {
 
 		house.draw(this);
 		person.draw(this);
+		ground.draw(this);
+
+		tick++;
+		if (tick == gap) {
+			tick = 0;
+			gap = (int) (Math.random() * 30d);
+			rain.add(new Rain((int) (Math.random() * this.width), (int) (Math.random() * 10)));
+		}
+		((Person) person).fall(this, (Ground) ground);
+		for (int i = 0; i < rain.size(); i++) {
+			((Rain) rain.get(i)).fall(this, (Ground) ground);
+		}
 
 	}
 
@@ -57,5 +71,9 @@ public class DrawingSurface extends PApplet {
 		int x = (int) (mouseX / scalex);
 		int y = (int) (mouseY / scaley);
 		house.moveTo(((x + 5) / 10) * 10, ((y + 5) / 10) * 10);
+	}
+
+	public void remove(Rain r) {
+		rain.remove(r);
 	}
 }
