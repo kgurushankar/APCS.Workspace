@@ -61,7 +61,6 @@ public class Person extends Drawable {
 	}
 
 	public void fall(PApplet applet, Ground ground) {
-		//System.out.println(v);
 		if (ground.getLocation(applet).doesIntersect(new Line(x, y, x + 25, y+75))) {
 		} else {
 			this.y += v;
