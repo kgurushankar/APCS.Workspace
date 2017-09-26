@@ -1,4 +1,7 @@
+package kgurushankar.testers;
 
+import kgurushankar.shapes.Circle;
+import kgurushankar.shapes.Rectangle;
 import processing.core.PApplet;
 
 public class DrawingSurface extends PApplet {

@@ -1,3 +1,4 @@
+package kgurushankar.shapes;
 import processing.core.PApplet;
 import processing.core.PShape;
 
@@ -25,12 +26,12 @@ public class RegularPolygon {
 	}
 
 	// Calculates and returns the area of the rectangle
-	public double getArea() {
+	public void getArea() {
 
 	}
 
 	// Determines whether the point x,y is contained inside this rectangle
-	public boolean isPointInside(double x, double y) {
+	public void isPointInside(double x, double y) {
 	}
 
 	// Draws a new instance of a Rectangle object with the left and right
@@ -52,9 +53,9 @@ public class RegularPolygon {
 		return polygon;
 	}
 
-	private double getRadius() {
+	private void getRadius() {
 		double internalAngle = Math.PI * 2 / sides;
 		double legAngle = (Math.PI - internalAngle) / 2;
-		double r = math.
+
 	}
 }
