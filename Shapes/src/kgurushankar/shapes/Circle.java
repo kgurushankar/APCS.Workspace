@@ -1,4 +1,5 @@
 package kgurushankar.shapes;
+
 import java.awt.Graphics;
 import java.awt.geom.Point2D;
 
@@ -10,9 +11,9 @@ import processing.core.PShape;
  * 
  * @author kgurushankar
  */
-public class Circle {
+public class Circle extends Shape {
 	// x & y are center points
-	private double x, y, r;
+	private double r;
 
 	/**
 	 * Creates a default instance of a Circle object with all dimensions set to
@@ -33,8 +34,7 @@ public class Circle {
 	 *            Radius of the circle in pixels
 	 */
 	public Circle(double x, double y, double radius) {
-		this.x = x;
-		this.y = y;
+		super(x, y);
 		this.r = (r < 0) ? -r : r;
 	}
 
@@ -59,7 +59,7 @@ public class Circle {
 	 * @return if the point is inside
 	 */
 	public boolean isPointInside(double x, double y) {
-		return (Math.sqrt(Math.pow(this.x - x, 2) + Math.pow(this.y - y, 2)) <= this.r);
+		return (Math.sqrt(Math.pow(this.getX() - x, 2) + Math.pow(this.getY() - y, 2)) <= this.r);
 	}
 
 	/**
@@ -83,7 +83,7 @@ public class Circle {
 	 */
 	public void draw(PApplet applet) {
 		applet.ellipseMode(PApplet.RADIUS);
-		applet.ellipse((float) this.x, (float) this.y, (float) this.r, (float) this.r);
+		applet.ellipse((float) this.getX(), (float) this.getY(), (float) this.r, (float) this.r);
 	}
 
 	/**
@@ -93,7 +93,7 @@ public class Circle {
 	 *            The Graphics object the circle is being drawn on
 	 */
 	public void draw(Graphics g) {
-		g.drawOval((int) (x - r), (int) (y - r), (int) (2 * r), (int) (2 * r));
+		g.drawOval((int) (getX() - r), (int) (getY() - r), (int) (2 * r), (int) (2 * r));
 
 	}
 
@@ -108,7 +108,7 @@ public class Circle {
 	 * @return if a point is on the edge of the circle (the line drawn)
 	 */
 	public boolean onCircle(double x, double y) {
-		double out = ((this.x - x) * (this.x - x) + (this.y - y) * (this.y - y) - r * r);
+		double out = ((this.getX() - x) * (this.getX() - x) + (this.getY() - y) * (this.getY() - y) - r * r);
 		return out <= 0.001 && out >= -0.001;
 	}
 
@@ -130,7 +130,7 @@ public class Circle {
 	 * @return this circle as a PShape
 	 */
 	public PShape getPShape(PApplet applet) {
-		PShape p = applet.createShape(PApplet.ELLIPSE, (float) x, (float) y, (float) r, (float) r);
+		PShape p = applet.createShape(PApplet.ELLIPSE, (float) getX(), (float) getY(), (float) r, (float) r);
 		return p;
 	}
 

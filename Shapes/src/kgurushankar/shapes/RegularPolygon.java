@@ -1,7 +1,9 @@
 package kgurushankar.shapes;
+
 import processing.core.PApplet;
 import processing.core.PShape;
 
+/** Currently Incomplete and may not work */
 public class RegularPolygon {
 	// x & y represent center of polygon;
 	private double x, y, sideLength;

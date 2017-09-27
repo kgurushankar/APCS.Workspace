@@ -1,4 +1,5 @@
 package kgurushankar.shapes;
+
 import java.awt.geom.Line2D;
 
 import processing.core.PApplet;
@@ -29,6 +30,22 @@ public class Line {
 		points[0][1] = y1;
 		points[1][0] = x2;
 		points[1][1] = y2;
+	}
+
+	/**
+	 * Creates a new line with starting point, angle and length
+	 * 
+	 * @param x
+	 *            x coordinate of the start of the line
+	 * @param y
+	 *            y coordinate of the start of the line
+	 * @param angle
+	 *            angle of the line from the starting point <i>(in radians)</i>
+	 * @param length
+	 *            length of the line
+	 */
+	public Line(float x, float y, double angle, double length) {
+		this(x, y, (float) (x + length * Math.cos(angle)), (float) (y + length * Math.sin(angle)));
 	}
 
 	/**
