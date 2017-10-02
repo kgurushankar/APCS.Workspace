@@ -11,15 +11,14 @@ import processing.core.PShape;
  * 
  * @author kgurushankar
  */
-public class Rectangle extends Shape {
-	private double width, height;
+public class Rectangle extends Shape2D {
 
 	/**
 	 * Creates a default instance of a Rectangle object with all dimensions set to
 	 * zero.
 	 */
 	public Rectangle() {
-		this(0, 0, 0, 0);
+		super(0, 0, 0, 0);
 	}
 
 	/**
@@ -35,19 +34,7 @@ public class Rectangle extends Shape {
 	 *            Height of the rectangle in pixels
 	 */
 	public Rectangle(double x, double y, double width, double height) {
-		super(x, y);
-		if (width < 0) {
-			this.width = -width;
-			this.setX(this.getX() + width);
-		} else {
-			this.width = width;
-		}
-		if (height < 0) {
-			this.height = -height;
-			this.setY(this.getY() + height);
-		} else {
-			this.height = height;
-		}
+		super(x, y, x + width, y + height);
 	}
 
 	/** @return perimeter of the rectangle */
@@ -70,8 +57,7 @@ public class Rectangle extends Shape {
 	 * @return if the point is inside
 	 */
 	public boolean isPointInside(double x, double y) {
-		return (x >= this.getX() && x <= (this.getX() + this.width))
-				&& (y >= this.getY() && y <= (this.getY() + this.height));
+		return (x >= this.x && x <= (this.x + this.width)) && (y >= this.y && y <= (this.y + this.height));
 	}
 
 	/**
@@ -82,8 +68,8 @@ public class Rectangle extends Shape {
 	 * @return if the point is inside
 	 */
 	public boolean isPointInside(Point2D.Double point) {
-		double x = point.getX();
-		double y = point.getY();
+		double x = point.x;
+		double y = point.y;
 		return isPointInside(x, y);
 	}
 
@@ -96,7 +82,7 @@ public class Rectangle extends Shape {
 	 * 
 	 */
 	public void draw(PApplet applet) {
-		applet.rect((float) this.getX(), (float) this.getY(), (float) this.width, (float) this.height);
+		applet.rect((float) this.x, (float) this.y, (float) this.width, (float) this.height);
 	}
 
 	/**
@@ -107,7 +93,7 @@ public class Rectangle extends Shape {
 	 * @post this rectangle will be drawn on the Graphics object
 	 */
 	public void draw(Graphics g) {
-		g.drawRect((int) getX(), (int) getY(), (int) width, (int) height);
+		g.drawRect((int) x, (int) y, (int) width, (int) height);
 	}
 
 	/**
@@ -116,7 +102,7 @@ public class Rectangle extends Shape {
 	 * @return this rectangle as a PShape
 	 */
 	public PShape getPShape(PApplet applet) {
-		PShape p = applet.createShape(PApplet.RECT, (float) getX(), (float) getY(), (float) width, (float) height);
+		PShape p = applet.createShape(PApplet.RECT, (float) x, (float) y, (float) width, (float) height);
 		return p;
 	}
 

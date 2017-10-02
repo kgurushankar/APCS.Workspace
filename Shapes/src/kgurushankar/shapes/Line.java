@@ -9,8 +9,7 @@ import processing.core.PApplet;
  * 
  * @author kgurushankar
  */
-public class Line {
-	private float[][] points;
+public class Line extends Shape1D {
 
 	/**
 	 * Creates a new line with endpoints
@@ -25,11 +24,7 @@ public class Line {
 	 *            y coordinate of the end of the line
 	 */
 	public Line(float x1, float y1, float x2, float y2) {
-		points = new float[2][2];
-		points[0][0] = x1;
-		points[0][1] = y1;
-		points[1][0] = x2;
-		points[1][1] = y2;
+		super(x1, y1, x2, y2);
 	}
 
 	/**
@@ -45,7 +40,7 @@ public class Line {
 	 *            length of the line
 	 */
 	public Line(float x, float y, double angle, double length) {
-		this(x, y, (float) (x + length * Math.cos(angle)), (float) (y + length * Math.sin(angle)));
+		super(x, y, (float) (x + length * Math.cos(angle)), (float) (y + length * Math.sin(angle)));
 	}
 
 	/**
@@ -57,7 +52,7 @@ public class Line {
 	 * 
 	 */
 	public void draw(PApplet applet) {
-		applet.line(points[0][0], points[0][1], points[1][0], points[1][1]);
+		applet.line(line[0][0], line[0][1], line[1][0], line[1][1]);
 	}
 
 	/**
@@ -67,14 +62,14 @@ public class Line {
 	 *         (both are float arrays)
 	 */
 	public float[] intersects(Line l2) {
-		float x1 = this.points[0][0];
-		float y1 = this.points[0][1];
-		float x2 = this.points[1][0];
-		float y2 = this.points[1][1];
-		float x3 = l2.points[0][0];
-		float y3 = l2.points[0][1];
-		float x4 = l2.points[1][0];
-		float y4 = l2.points[1][1];
+		float x1 = this.line[0][0];
+		float y1 = this.line[0][1];
+		float x2 = this.line[1][0];
+		float y2 = this.line[1][1];
+		float x3 = l2.line[0][0];
+		float y3 = l2.line[0][1];
+		float x4 = l2.line[1][0];
+		float y4 = l2.line[1][1];
 
 		float x = ((x1 * y2 - y1 * x2) * (x3 - x4) - (x1 - x2) * (x3 * y4 - y3 * x4))
 				/ ((x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4));
@@ -112,13 +107,13 @@ public class Line {
 	 *            new y coordinate of the end of the line
 	 */
 	public void setPoint2(float x, float y) {
-		points[1][0] = x;
-		points[1][1] = y;
+		line[1][0] = x;
+		line[1][1] = y;
 
 	}
 
 	private boolean contains(float x, float y) {
-		return inRange(x, points[0][0], points[1][0]) && inRange(y, points[0][1], points[1][1]);
+		return inRange(x, line[0][0], line[1][0]) && inRange(y, line[0][1], line[1][1]);
 	}
 
 	private boolean inRange(float x, float points2, float points3) {
