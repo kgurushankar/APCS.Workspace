@@ -1,5 +1,6 @@
 package kgurushankar.shapes;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 import processing.core.PApplet;
@@ -22,9 +23,13 @@ public class Line extends Shape1D {
 	 *            x coordinate of the end of the line
 	 * @param y2
 	 *            y coordinate of the end of the line
+	 * @param c
+	 *            Color of this shape
+	 * @param strokeWidth
+	 *            weight of the line this shape will be drawn with
 	 */
-	public Line(float x1, float y1, float x2, float y2) {
-		super(x1, y1, x2, y2);
+	public Line(float x1, float y1, float x2, float y2, Color c, double strokeWidth) {
+		super(x1, y1, x2, y2, c, strokeWidth);
 	}
 
 	/**
@@ -38,9 +43,14 @@ public class Line extends Shape1D {
 	 *            angle of the line from the starting point <i>(in radians)</i>
 	 * @param length
 	 *            length of the line
+	 * @param c
+	 *            Color of this shape
+	 * @param strokeWidth
+	 * 
+	 *            weight of the line this shape will be drawn with
 	 */
-	public Line(float x, float y, double angle, double length) {
-		super(x, y, (float) (x + length * Math.cos(angle)), (float) (y + length * Math.sin(angle)));
+	public Line(float x, float y, double angle, double length, Color c, double strokeWidth) {
+		super(x, y, (float) (x + length * Math.cos(angle)), (float) (y + length * Math.sin(angle)), c, strokeWidth);
 	}
 
 	/**
@@ -52,18 +62,20 @@ public class Line extends Shape1D {
 	 * 
 	 */
 	public void draw(PApplet applet) {
+		super.draw(applet);
 		applet.line((float) line[0][0], (float) line[0][1], (float) line[1][0], (float) line[1][1]);
 	}
 
 	/**
 	 * Draws this Line object (in Swing Graphics)
 	 * 
-	 * @param applet
-	 *            The PApplet the line is being drawn on
-	 * @post this line will be drawn on the PApplet
+	 * @param g
+	 *            The Graphics Object the line is being drawn on
+	 * @post this line will be drawn on the Graphics
 	 * 
 	 */
 	public void draw(Graphics g) {
+		super.draw(g);
 		g.drawLine((int) line[0][0], (int) line[0][1], (int) line[1][0], (int) line[1][1]);
 	}
 

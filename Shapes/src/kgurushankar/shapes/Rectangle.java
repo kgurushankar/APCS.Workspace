@@ -1,5 +1,6 @@
 package kgurushankar.shapes;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.geom.Point2D;
 
@@ -18,7 +19,7 @@ public class Rectangle extends Shape2D {
 	 * zero.
 	 */
 	public Rectangle() {
-		super(0, 0, 0, 0);
+		super(0, 0, 0, 0, Color.BLACK, 0);
 	}
 
 	/**
@@ -32,9 +33,13 @@ public class Rectangle extends Shape2D {
 	 *            Width of the rectangle in pixels
 	 * @param height
 	 *            Height of the rectangle in pixels
+	 * @param c
+	 *            Color of this shape
+	 * @param strokeWidth
+	 *            weight of the line this shape will be drawn with
 	 */
-	public Rectangle(double x, double y, double width, double height) {
-		super(x, y, x + width, y + height);
+	public Rectangle(double x, double y, double width, double height, Color c, double strokeWidth) {
+		super(x, y, x + width, y + height, c, strokeWidth);
 	}
 
 	/** @return perimeter of the rectangle */
@@ -90,6 +95,7 @@ public class Rectangle extends Shape2D {
 	 * 
 	 */
 	public void draw(PApplet applet) {
+		super.draw(applet);
 		double width = line[1][0] - line[0][0];
 		double height = line[1][1] - line[0][1];
 		double x = line[0][0];
@@ -105,6 +111,7 @@ public class Rectangle extends Shape2D {
 	 * @post this rectangle will be drawn on the Graphics object
 	 */
 	public void draw(Graphics g) {
+		super.draw(g);
 		double width = line[1][0] - line[0][0];
 		double height = line[1][1] - line[0][1];
 		double x = line[0][0];
@@ -128,9 +135,7 @@ public class Rectangle extends Shape2D {
 
 	/** @return the length of the diagonal of this rectangle */
 	public double getDiagonalLength() {
-		double width = line[1][0] - line[0][0];
-		double height = line[1][1] - line[0][1];
-		return Math.sqrt(width * width + height * height);
+		return super.getLength();
 	}
 
 }

@@ -1,5 +1,6 @@
 package kgurushankar.shapes;
 
+import java.awt.Color;
 import java.awt.geom.Point2D;
 
 /**
@@ -13,7 +14,7 @@ public class Circle extends Ellipse {
 	 * zero.
 	 */
 	public Circle() {
-		super(0, 0, 0, 0);
+		super(0, 0, 0, 0, Color.BLACK, 0);
 	}
 
 	/**
@@ -25,9 +26,13 @@ public class Circle extends Ellipse {
 	 *            Y coordinate of the center of the ellipse
 	 * @param r
 	 *            Radius of the ellipse in pixels
+	 * @param c
+	 *            Color of this shape
+	 * @param strokeWidth
+	 *            weight of the line this shape will be drawn with
 	 */
-	public Circle(double x, double y, double r) {
-		super(x - r, y - r, x + r, y + r);
+	public Circle(double x, double y, double r, Color c, double strokeWidth) {
+		super(x - r, y - r, x + r, y + r, c, strokeWidth);
 	}
 
 	public Circle(Shape1D shape) {

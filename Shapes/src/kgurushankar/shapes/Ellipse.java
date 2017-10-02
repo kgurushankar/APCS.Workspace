@@ -1,5 +1,6 @@
 package kgurushankar.shapes;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.geom.Point2D;
 
@@ -20,7 +21,7 @@ public class Ellipse extends Shape2D {
 	 * zero.
 	 */
 	public Ellipse() {
-		this(0, 0, 0, 0);
+		this(0, 0, 0, 0, Color.black, 0);
 	}
 
 	/**
@@ -34,9 +35,13 @@ public class Ellipse extends Shape2D {
 	 *            Width of the ellipse in pixels
 	 * @param height
 	 *            Height of the ellipse in pixels
+	 * @param c
+	 *            Color of this shape
+	 * @param strokeWidth
+	 *            weight of the line this shape will be drawn with
 	 */
-	public Ellipse(double x, double y, double width, double height) {
-		super(x - width, y - width, x + width, y + width);
+	public Ellipse(double x, double y, double width, double height, Color c, double strokeWidth) {
+		super(x - width, y - width, x + width, y + width, c, strokeWidth);
 	}
 
 	public Ellipse(Shape1D shape) {
@@ -93,6 +98,7 @@ public class Ellipse extends Shape2D {
 	 *            The PApplet the ellipse is being drawn on
 	 */
 	public void draw(PApplet applet) {
+		super.draw(applet);
 		double xc = (this.line[0][0] + this.line[1][0]) / 2;
 		double yc = (this.line[0][0] + this.line[1][0]) / 2;
 		double width = this.line[0][0] - xc;
@@ -108,6 +114,7 @@ public class Ellipse extends Shape2D {
 	 *            The Graphics object the ellipse is being drawn on
 	 */
 	public void draw(Graphics g) {
+		super.draw(g);
 		double xc = (this.line[0][0] + this.line[1][0]) / 2;
 		double yc = (this.line[0][0] + this.line[1][0]) / 2;
 		double width = this.line[0][0] - xc;
