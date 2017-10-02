@@ -39,11 +39,15 @@ public class Rectangle extends Shape2D {
 
 	/** @return perimeter of the rectangle */
 	public double getPerimeter() {
+		double width = line[1][0] - line[0][0];
+		double height = line[1][1] - line[0][1];
 		return 2 * (width + height);
 	}
 
 	/** @return area of the rectangle */
 	public double getArea() {
+		double width = line[1][0] - line[0][0];
+		double height = line[1][1] - line[0][1];
 		return width * height;
 	}
 
@@ -57,7 +61,11 @@ public class Rectangle extends Shape2D {
 	 * @return if the point is inside
 	 */
 	public boolean isPointInside(double x, double y) {
-		return (x >= this.x && x <= (this.x + this.width)) && (y >= this.y && y <= (this.y + this.height));
+		double width = line[1][0] - line[0][0];
+		double height = line[1][1] - line[0][1];
+		double xc = line[0][0];
+		double yc = line[0][1];
+		return (x >= xc && x <= (xc + width)) && (y >= yc && y <= (yc + height));
 	}
 
 	/**
@@ -82,7 +90,11 @@ public class Rectangle extends Shape2D {
 	 * 
 	 */
 	public void draw(PApplet applet) {
-		applet.rect((float) this.x, (float) this.y, (float) this.width, (float) this.height);
+		double width = line[1][0] - line[0][0];
+		double height = line[1][1] - line[0][1];
+		double x = line[0][0];
+		double y = line[0][1];
+		applet.rect((float) x, (float) y, (float) width, (float) height);
 	}
 
 	/**
@@ -93,6 +105,10 @@ public class Rectangle extends Shape2D {
 	 * @post this rectangle will be drawn on the Graphics object
 	 */
 	public void draw(Graphics g) {
+		double width = line[1][0] - line[0][0];
+		double height = line[1][1] - line[0][1];
+		double x = line[0][0];
+		double y = line[0][1];
 		g.drawRect((int) x, (int) y, (int) width, (int) height);
 	}
 
@@ -102,12 +118,18 @@ public class Rectangle extends Shape2D {
 	 * @return this rectangle as a PShape
 	 */
 	public PShape getPShape(PApplet applet) {
+		double width = line[1][0] - line[0][0];
+		double height = line[1][1] - line[0][1];
+		double x = line[0][0];
+		double y = line[0][1];
 		PShape p = applet.createShape(PApplet.RECT, (float) x, (float) y, (float) width, (float) height);
 		return p;
 	}
 
 	/** @return the length of the diagonal of this rectangle */
 	public double getDiagonalLength() {
+		double width = line[1][0] - line[0][0];
+		double height = line[1][1] - line[0][1];
 		return Math.sqrt(width * width + height * height);
 	}
 

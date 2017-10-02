@@ -1,6 +1,6 @@
 package kgurushankar.shapes;
 
-import java.awt.geom.Line2D;
+import java.awt.Graphics;
 
 import processing.core.PApplet;
 
@@ -52,7 +52,19 @@ public class Line extends Shape1D {
 	 * 
 	 */
 	public void draw(PApplet applet) {
-		applet.line(line[0][0], line[0][1], line[1][0], line[1][1]);
+		applet.line((float) line[0][0], (float) line[0][1], (float) line[1][0], (float) line[1][1]);
+	}
+
+	/**
+	 * Draws this Line object (in Swing Graphics)
+	 * 
+	 * @param applet
+	 *            The PApplet the line is being drawn on
+	 * @post this line will be drawn on the PApplet
+	 * 
+	 */
+	public void draw(Graphics g) {
+		g.drawLine((int) line[0][0], (int) line[0][1], (int) line[1][0], (int) line[1][1]);
 	}
 
 	/**
@@ -62,14 +74,14 @@ public class Line extends Shape1D {
 	 *         (both are float arrays)
 	 */
 	public float[] intersects(Line l2) {
-		float x1 = this.line[0][0];
-		float y1 = this.line[0][1];
-		float x2 = this.line[1][0];
-		float y2 = this.line[1][1];
-		float x3 = l2.line[0][0];
-		float y3 = l2.line[0][1];
-		float x4 = l2.line[1][0];
-		float y4 = l2.line[1][1];
+		float x1 = (float) this.line[0][0];
+		float y1 = (float) this.line[0][1];
+		float x2 = (float) this.line[1][0];
+		float y2 = (float) this.line[1][1];
+		float x3 = (float) l2.line[0][0];
+		float y3 = (float) l2.line[0][1];
+		float x4 = (float) l2.line[1][0];
+		float y4 = (float) l2.line[1][1];
 
 		float x = ((x1 * y2 - y1 * x2) * (x3 - x4) - (x1 - x2) * (x3 * y4 - y3 * x4))
 				/ ((x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4));
@@ -113,7 +125,7 @@ public class Line extends Shape1D {
 	}
 
 	private boolean contains(float x, float y) {
-		return inRange(x, line[0][0], line[1][0]) && inRange(y, line[0][1], line[1][1]);
+		return inRange(x, (float) line[0][0], (float) line[1][0]) && inRange(y, (float) line[0][1], (float) line[1][1]);
 	}
 
 	private boolean inRange(float x, float points2, float points3) {

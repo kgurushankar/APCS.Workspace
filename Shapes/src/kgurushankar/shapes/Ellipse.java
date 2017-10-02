@@ -39,6 +39,10 @@ public class Ellipse extends Shape2D {
 		super(x - width, y - width, x + width, y + width);
 	}
 
+	public Ellipse(Shape1D shape) {
+		super(shape);
+	}
+
 	/** @return perimeter of the ellipse */
 	public double getPerimeter() {
 		return Math.PI * super.getLength();
@@ -46,7 +50,9 @@ public class Ellipse extends Shape2D {
 
 	/** @return area of the ellipse */
 	public double getArea() {
-		return Math.PI * this.r * this.r;
+		double width = (line[1][0] - line[0][0]) / 2;
+		double height = (line[1][1] - line[0][1]) / 2;
+		return Math.PI * width * height;
 	}
 
 	/**
@@ -60,7 +66,11 @@ public class Ellipse extends Shape2D {
 	 * @return if the point is inside
 	 */
 	public boolean isPointInside(double x, double y) {
-		return (Math.sqrt(Math.pow(this.getX() - x, 2) + Math.pow(this.getY() - y, 2)) <= this.r);
+		double xc = (this.line[0][0] + this.line[1][0]) / 2;
+		double yc = (this.line[0][0] + this.line[1][0]) / 2;
+		double width = this.line[0][0] - xc;
+		double height = this.line[0][1] - yc;
+		return (Math.pow((x - xc), 2) / (height * height) + Math.pow(y - yc, 2) / (width * width) <= 1);
 	}
 
 	/**
@@ -83,8 +93,12 @@ public class Ellipse extends Shape2D {
 	 *            The PApplet the ellipse is being drawn on
 	 */
 	public void draw(PApplet applet) {
+		double xc = (this.line[0][0] + this.line[1][0]) / 2;
+		double yc = (this.line[0][0] + this.line[1][0]) / 2;
+		double width = this.line[0][0] - xc;
+		double height = this.line[0][1] - yc;
 		applet.ellipseMode(PApplet.RADIUS);
-		applet.ellipse((float) this.getX(), (float) this.getY(), (float) this.r, (float) this.r);
+		applet.ellipse((float) xc, (float) yc, (float) width, (float) height);
 	}
 
 	/**
@@ -94,35 +108,12 @@ public class Ellipse extends Shape2D {
 	 *            The Graphics object the ellipse is being drawn on
 	 */
 	public void draw(Graphics g) {
-		g.drawOval((int) (getX() - r), (int) (getY() - r), (int) (2 * r), (int) (2 * r));
+		double xc = (this.line[0][0] + this.line[1][0]) / 2;
+		double yc = (this.line[0][0] + this.line[1][0]) / 2;
+		double width = this.line[0][0] - xc;
+		double height = this.line[0][1] - yc;
+		g.drawOval((int) (xc - width), (int) (yc - height), (int) (2 * width), (int) (2 * height));
 
-	}
-
-	/**
-	 * Checks if a point is on the ellipse (if a point was drawn and the ellipse was
-	 * as well, the point would be on the unfilled edge)
-	 * 
-	 * @param x
-	 *            x coordinate of the point
-	 * @param y
-	 *            y coordinate of the point
-	 * @return if a point is on the edge of the ellipse (the line drawn)
-	 */
-	public boolean onellipse(double x, double y) {
-		double out = ((this.getX() - x) * (this.getX() - x) + (this.getY() - y) * (this.getY() - y) - r * r);
-		return out <= 0.001 && out >= -0.001;
-	}
-
-	/**
-	 * Checks if a point is on the ellipse (if a point was drawn and the ellipse was
-	 * as well, the point would be on the unfilled edge)
-	 * 
-	 * @param point
-	 *            the point being checked
-	 * @return if a point is on the edge of the ellipse (the line drawn)
-	 */
-	public boolean onellipse(Point2D.Double point) {
-		return onellipse(point.getX(), point.getY());
 	}
 
 	/**
@@ -131,8 +122,17 @@ public class Ellipse extends Shape2D {
 	 * @return this ellipse as a PShape
 	 */
 	public PShape getPShape(PApplet applet) {
-		PShape p = applet.createShape(PApplet.ELLIPSE, (float) getX(), (float) getY(), (float) r, (float) r);
+		PShape p = applet.createShape(PApplet.ELLIPSE, (float) getX(), (float) getY(),
+				(float) (line[1][0] - line[0][0]), (float) (line[1][1] - line[0][1]));
 		return p;
+	}
+
+	protected double getX() {
+		return (this.line[0][0] + this.line[1][0]) / 2;
+	}
+
+	protected double getY() {
+		return (this.line[0][0] + this.line[1][0]) / 2;
 	}
 
 }

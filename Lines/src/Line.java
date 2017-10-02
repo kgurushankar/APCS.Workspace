@@ -1,4 +1,3 @@
-import java.awt.geom.Line2D;
 
 import processing.core.PApplet;
 
@@ -18,7 +17,8 @@ public class Line {
 	}
 
 	/**
-	 * @return [-1f] if there is no intersection point or [x,y] if there is a point (both are float arrays)
+	 * @return [-1f] if there is no intersection point or [x,y] if there is a point
+	 *         (both are float arrays)
 	 */
 	public float[] intersects(Line l2) {
 		float x1 = this.points[0][0];
@@ -35,7 +35,8 @@ public class Line {
 		float y = ((x1 * y2 - y1 * x2) * (y3 - y4) - (y1 - y2) * (x3 * y4 - y3 * x4))
 				/ ((x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4));
 
-		if (y == Float.POSITIVE_INFINITY || y == Float.NEGATIVE_INFINITY || y == Float.NaN || x == Float.NaN || x == Float.POSITIVE_INFINITY || x == Float.NEGATIVE_INFINITY){
+		if (y == Float.POSITIVE_INFINITY || y == Float.NEGATIVE_INFINITY || y == Float.NaN || x == Float.NaN
+				|| x == Float.POSITIVE_INFINITY || x == Float.NEGATIVE_INFINITY) {
 			return new float[] { -1f }; // Div by 0 case
 		}
 
@@ -46,9 +47,9 @@ public class Line {
 		}
 
 	}
-	
-	public boolean doesIntersect(Line l2){
-		return this.intersects(l2).length==2;
+
+	public boolean doesIntersect(Line l2) {
+		return this.intersects(l2).length == 2;
 	}
 
 	public void setPoint2(float mouseX, float mouseY) {
