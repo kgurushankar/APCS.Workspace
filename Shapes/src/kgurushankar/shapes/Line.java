@@ -33,6 +33,22 @@ public class Line extends Shape1D {
 	}
 
 	/**
+	 * Creates a new line with endpoints that is black with a stroke width of 2
+	 * 
+	 * @param x1
+	 *            x coordinate of the start of the line
+	 * @param y1
+	 *            y coordinate of the start of the line
+	 * @param x2
+	 *            x coordinate of the end of the line
+	 * @param y2
+	 *            y coordinate of the end of the line
+	 */
+	public Line(float x1, float y1, float x2, float y2) {
+		this(x1, y1, x2, y2, Color.BLACK, 2);
+	}
+
+	/**
 	 * Creates a new line with starting point, angle and length
 	 * 
 	 * @param x
@@ -51,6 +67,23 @@ public class Line extends Shape1D {
 	 */
 	public Line(float x, float y, double angle, double length, Color c, double strokeWidth) {
 		super(x, y, (float) (x + length * Math.cos(angle)), (float) (y + length * Math.sin(angle)), c, strokeWidth);
+	}
+
+	/**
+	 * Creates a new line with starting point, angle and length that is black with
+	 * stroke width of 2
+	 * 
+	 * @param x
+	 *            x coordinate of the start of the line
+	 * @param y
+	 *            y coordinate of the start of the line
+	 * @param angle
+	 *            angle of the line from the starting point <i>(in radians)</i>
+	 * @param length
+	 *            length of the line
+	 */
+	public Line(float x, float y, double angle, double length) {
+		this(x, y, (x + length * Math.cos(angle)), (y + length * Math.sin(angle)), Color.black, 2);
 	}
 
 	/**
