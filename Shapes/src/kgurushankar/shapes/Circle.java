@@ -70,10 +70,6 @@ public class Circle extends Ellipse {
 		this(x, y, r, Color.black, 2);
 	}
 
-	public Circle(Shape1D shape) {
-		super(shape);
-	}
-
 	/**
 	 * Checks if a point is on the ellipse (if a point was drawn and the ellipse was
 	 * as well, the point would be on the unfilled edge)

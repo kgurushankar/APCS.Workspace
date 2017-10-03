@@ -81,6 +81,32 @@ public class Rectangle extends Shape2D {
 		super(x, y, x + width, y + height, c, strokeWidth);
 	}
 
+	/**
+	 * Copy Constructor <br>
+	 * Can be used to get a rectangle with the same defining line and same fill
+	 * settings as the shape given
+	 * 
+	 * @param shape
+	 *            shape to copy data from
+	 */
+	public Rectangle(Shape2D shape) {
+		super(shape);
+	}
+
+	/**
+	 * Copy Constructor <br>
+	 * Can be used to get a rectangle with the same defining line as the shape
+	 * given<br>
+	 * <i> note that this does not copy fillColor over<br>
+	 * to do that use {@link Rectangle#Rectangle(Shape2D)} instead</i>
+	 * 
+	 * @param shape
+	 *            shape to copy data from
+	 */
+	public Rectangle(Shape1D shape) {
+		super(shape);
+	}
+
 	/** @return perimeter of the rectangle */
 	public double getPerimeter() {
 		double width = line[1][0] - line[0][0];

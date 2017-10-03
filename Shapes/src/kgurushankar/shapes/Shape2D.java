@@ -74,7 +74,9 @@ public abstract class Shape2D extends Shape1D {
 
 	/**
 	 * Copy Constructor <br>
-	 * Can be used to get a different shape with the same defining line
+	 * Can be used to get a different shape with the same defining line<br>
+	 * <i> note that this does not copy fillColor over<br>
+	 * to do that use {@link Shape2D#Shape2D(Shape2D)} instead</i>
 	 * 
 	 * @param shape
 	 *            shape to copy data from

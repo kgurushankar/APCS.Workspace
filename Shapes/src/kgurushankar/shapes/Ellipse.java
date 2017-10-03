@@ -83,6 +83,28 @@ public class Ellipse extends Shape2D {
 		this(x, y, width, height, Color.BLACK, 2);
 	}
 
+	/**
+	 * Copy Constructor <br>
+	 * Can be used to get an ellipse with the same defining line and same
+	 * fill settings as the shape given
+	 * 
+	 * @param shape
+	 *            shape to copy data from
+	 */
+	public Ellipse(Shape2D shape) {
+		super(shape);
+	}
+
+	/**
+	 * Copy Constructor <br>
+	 * Can be used to get an ellipse with the same defining line as the shape
+	 * given<br>
+	 * <i> note that this does not copy fillColor over<br>
+	 * to do that use {@link Ellipse#Ellipse(Shape2D)} instead</i>
+	 * 
+	 * @param shape
+	 *            shape to copy data from
+	 */
 	public Ellipse(Shape1D shape) {
 		super(shape);
 	}
