@@ -19,7 +19,24 @@ public class Rectangle extends Shape2D {
 	 * zero.
 	 */
 	public Rectangle() {
-		super(0, 0, 0, 0, Color.BLACK, 0);
+		super(0, 0, 0, 0, Color.BLACK, 2);
+	}
+
+	/**
+	 * Creates a new instance of a Rectangle object. It will have a black color and
+	 * will have a strokewidth of 2
+	 * 
+	 * @param x
+	 *            X coordinate of the top left corner of the rectangle
+	 * @param y
+	 *            Y coordinate of the top left corner of the rectangle
+	 * @param width
+	 *            Width of the rectangle in pixels
+	 * @param height
+	 *            Height of the rectangle in pixels
+	 */
+	public Rectangle(double x, double y, double width, double height) {
+		this(x, y, width, height, Color.BLACK, 2);
 	}
 
 	/**

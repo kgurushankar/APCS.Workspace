@@ -1,17 +1,20 @@
 package kgurushankar.testers;
 
-import kgurushankar.shapes.Circle;
-import kgurushankar.shapes.Rectangle;
+import java.awt.Color;
+
+import kgurushankar.shapes.*;
 import processing.core.PApplet;
 
 public class DrawingSurface extends PApplet {
 
 	private Rectangle r;
 	private Circle c;
+	private Ellipse e;
 
 	public DrawingSurface() {
 		r = new Rectangle(100, 100, 20, 300);
 		c = new Circle(100, 100, 50);
+		e = new Ellipse(r);
 	}
 
 	// The statements in the setup() function
@@ -28,6 +31,7 @@ public class DrawingSurface extends PApplet {
 		background(255); // Clear the screen with a white background
 		r.draw(this);
 		c.draw(this);
+		e.draw(this);
 	}
 
 }

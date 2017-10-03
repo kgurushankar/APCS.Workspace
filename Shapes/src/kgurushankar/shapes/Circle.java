@@ -10,15 +10,15 @@ import java.awt.geom.Point2D;
  */
 public class Circle extends Ellipse {
 	/**
-	 * Creates a default instance of a Ellipse object with all dimensions set to
+	 * Creates a default instance of a Circle object with all dimensions set to
 	 * zero.
 	 */
 	public Circle() {
-		super(0, 0, 0, 0, Color.BLACK, 0);
+		super(0, 0, 0, 0, Color.BLACK, 2);
 	}
 
 	/**
-	 * Creates a new instance of a ellipse object.
+	 * Creates a new instance of a circle object.
 	 * 
 	 * @param x
 	 *            X coordinate of the center of the ellipse
@@ -32,7 +32,22 @@ public class Circle extends Ellipse {
 	 *            weight of the line this shape will be drawn with
 	 */
 	public Circle(double x, double y, double r, Color c, double strokeWidth) {
-		super(x - r, y - r, x + r, y + r, c, strokeWidth);
+		super(x, y, r, r, c, strokeWidth);
+	}
+
+	/**
+	 * Creates a new instance of a circle object that will be drawn in black with a
+	 * stroke width of 2
+	 * 
+	 * @param x
+	 *            X coordinate of the center of the ellipse
+	 * @param y
+	 *            Y coordinate of the center of the ellipse
+	 * @param r
+	 *            Radius of the ellipse in pixels
+	 */
+	public Circle(double x, double y, double r) {
+		this(x, y, r, Color.black, 2);
 	}
 
 	public Circle(Shape1D shape) {
