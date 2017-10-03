@@ -5,6 +5,11 @@ import java.awt.geom.Point2D;
 
 import processing.core.PApplet;
 
+/**
+ * Defines a 2D shape that can be filled or unfilled
+ * 
+ * @author kgurushankar
+ */
 public abstract class Shape2D extends Shape1D {
 	/**
 	 * Color this shape will be filled with <br>
