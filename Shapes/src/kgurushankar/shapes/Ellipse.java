@@ -39,6 +39,28 @@ public class Ellipse extends Shape2D {
 	 *            Color of this shape
 	 * @param strokeWidth
 	 *            weight of the line this shape will be drawn with
+	 * @param fillColor
+	 *            color this shape will be filled with
+	 */
+	public Ellipse(double x, double y, double width, double height, Color c, double strokeWidth, Color fillColor) {
+		super(x - width, y - height, x + width, y + height, c, strokeWidth, fillColor);
+	}
+
+	/**
+	 * Creates a new instance of a ellipse object.
+	 * 
+	 * @param x
+	 *            X coordinate of the center of the ellipse
+	 * @param y
+	 *            Y coordinate of the center of the ellipse
+	 * @param width
+	 *            Width of the ellipse in pixels
+	 * @param height
+	 *            Height of the ellipse in pixels
+	 * @param c
+	 *            Color of this shape
+	 * @param strokeWidth
+	 *            weight of the line this shape will be drawn with
 	 */
 	public Ellipse(double x, double y, double width, double height, Color c, double strokeWidth) {
 		super(x - width, y - height, x + width, y + height, c, strokeWidth);
@@ -102,7 +124,7 @@ public class Ellipse extends Shape2D {
 	 *            the point being checked
 	 * @return if the point is inside
 	 */
-	public boolean isPointInside(Point2D.Double point) {
+	public boolean isPointInside(Point2D point) {
 		double x = point.getX();
 		double y = point.getY();
 		return isPointInside(x, y);
@@ -136,8 +158,12 @@ public class Ellipse extends Shape2D {
 		double yc = getY();
 		double width = getWidth();
 		double height = getHeight();
-		g.drawOval((int) (xc - width), (int) (yc - height), (int) (width), (int) (height));
-
+		if (fillColor == null) {
+			g.drawOval((int) (xc - width), (int) (yc - height), (int) (width), (int) (height));
+		} else {
+			g.setColor(fillColor);
+			g.fillOval((int) (xc - width), (int) (yc - height), (int) (width), (int) (height));
+		}
 	}
 
 	/**

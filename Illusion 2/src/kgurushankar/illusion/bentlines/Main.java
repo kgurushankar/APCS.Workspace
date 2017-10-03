@@ -1,4 +1,4 @@
-package kgurushankar.illusion.linesize;
+package kgurushankar.illusion.bentlines;
 
 import java.awt.Dimension;
 

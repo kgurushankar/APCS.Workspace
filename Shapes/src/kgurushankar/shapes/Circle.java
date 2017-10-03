@@ -30,6 +30,26 @@ public class Circle extends Ellipse {
 	 *            Color of this shape
 	 * @param strokeWidth
 	 *            weight of the line this shape will be drawn with
+	 * @param fillColor
+	 *            color this shape will be filled with
+	 */
+	public Circle(double x, double y, double r, Color c, double strokeWidth, Color fillColor) {
+		super(x, y, r, r, c, strokeWidth, fillColor);
+	}
+
+	/**
+	 * Creates a new instance of a circle object.
+	 * 
+	 * @param x
+	 *            X coordinate of the center of the ellipse
+	 * @param y
+	 *            Y coordinate of the center of the ellipse
+	 * @param r
+	 *            Radius of the ellipse in pixels
+	 * @param c
+	 *            Color of this shape
+	 * @param strokeWidth
+	 *            weight of the line this shape will be drawn with
 	 */
 	public Circle(double x, double y, double r, Color c, double strokeWidth) {
 		super(x, y, r, r, c, strokeWidth);
@@ -78,7 +98,7 @@ public class Circle extends Ellipse {
 	 *            the point being checked
 	 * @return if a point is on the edge of the ellipse (the line drawn)
 	 */
-	public boolean onellipse(Point2D.Double point) {
+	public boolean onellipse(Point2D point) {
 		return onellipse(point.getX(), point.getY());
 	}
 

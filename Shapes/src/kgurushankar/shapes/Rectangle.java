@@ -23,6 +23,28 @@ public class Rectangle extends Shape2D {
 	}
 
 	/**
+	 * Creates a new instance of a Rectangle object.
+	 * 
+	 * @param x
+	 *            X coordinate of the top left corner of the rectangle
+	 * @param y
+	 *            Y coordinate of the top left corner of the rectangle
+	 * @param width
+	 *            Width of the rectangle in pixels
+	 * @param height
+	 *            Height of the rectangle in pixels
+	 * @param c
+	 *            Color of this shape
+	 * @param strokeWidth
+	 *            weight of the line this shape will be drawn with
+	 * @param fillColor
+	 *            color this shape will be filled with
+	 */
+	public Rectangle(double x, double y, double width, double height, Color c, double strokeWidth, Color fillColor) {
+		super(x, y, x + width, y + height, c, strokeWidth, fillColor);
+	}
+
+	/**
 	 * Creates a new instance of a Rectangle object. It will have a black color and
 	 * will have a strokewidth of 2
 	 * 
@@ -97,9 +119,9 @@ public class Rectangle extends Shape2D {
 	 *            the point being checked
 	 * @return if the point is inside
 	 */
-	public boolean isPointInside(Point2D.Double point) {
-		double x = point.x;
-		double y = point.y;
+	public boolean isPointInside(Point2D point) {
+		double x = point.getX();
+		double y = point.getY();
 		return isPointInside(x, y);
 	}
 
@@ -133,7 +155,13 @@ public class Rectangle extends Shape2D {
 		double height = line[1][1] - line[0][1];
 		double x = line[0][0];
 		double y = line[0][1];
-		g.drawRect((int) x, (int) y, (int) width, (int) height);
+		if (fillColor == null) {
+			g.drawRect((int) x, (int) y, (int) width, (int) height);
+		} else {
+			g.setColor(fillColor);
+			g.fillRect((int) x, (int) y, (int) width, (int) height);
+		}
+
 	}
 
 	/**

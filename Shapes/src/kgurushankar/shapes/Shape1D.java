@@ -62,7 +62,7 @@ public abstract class Shape1D {
 	 * @param strokeWidth
 	 *            weight of the line this shape will be drawn with
 	 */
-	protected Shape1D(Point2D.Double start, Point2D.Double end, Color c, double strokeWidth) {
+	protected Shape1D(Point2D start, Point2D end, Color c, double strokeWidth) {
 		this(start.getX(), start.getY(), end.getX(), end.getY(), c, strokeWidth);
 	}
 
@@ -89,6 +89,7 @@ public abstract class Shape1D {
 	public void draw(PApplet applet) {
 		applet.stroke(color.getRGB());
 		applet.strokeWeight((float) weight);
+		applet.noFill();
 	}
 
 	/**
