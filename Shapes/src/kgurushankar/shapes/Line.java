@@ -192,4 +192,15 @@ public class Line extends Shape1D {
 	private boolean inRange(float x, float points2, float points3) {
 		return ((x >= points2 && x <= points3) || (x <= points2 && x >= points3));
 	}
+
+	@Override
+	public double getX() {
+		return super.line[0][0];
+	}
+
+	@Override
+	public double getY() {
+		return super.line[0][1];
+	}
+
 }

@@ -85,8 +85,8 @@ public class Ellipse extends Shape2D {
 
 	/**
 	 * Copy Constructor <br>
-	 * Can be used to get an ellipse with the same defining line and same
-	 * fill settings as the shape given
+	 * Can be used to get an ellipse with the same defining line and same fill
+	 * settings as the shape given
 	 * 
 	 * @param shape
 	 *            shape to copy data from
@@ -116,8 +116,8 @@ public class Ellipse extends Shape2D {
 
 	/** @return area of the ellipse */
 	public double getArea() {
-		double width = getWidth();
-		double height = getHeight();
+		double width = getWidth() / 2;
+		double height = getHeight() / 2;
 		return Math.PI * width * height;
 	}
 
@@ -134,8 +134,8 @@ public class Ellipse extends Shape2D {
 	public boolean isPointInside(double x, double y) {
 		double xc = getX();
 		double yc = getY();
-		double width = getWidth();
-		double height = getWidth();
+		double width = getWidth() / 2;
+		double height = getWidth() / 2;
 		return (Math.pow((x - xc), 2) / (height * height) + Math.pow(y - yc, 2) / (width * width) <= 1);
 	}
 
@@ -162,8 +162,8 @@ public class Ellipse extends Shape2D {
 		super.draw(applet);
 		double xc = getX();
 		double yc = getY();
-		double width = getWidth();
-		double height = getHeight();
+		double width = getWidth() / 2;
+		double height = getHeight() / 2;
 		applet.ellipseMode(PApplet.RADIUS);
 		applet.ellipse((float) xc, (float) yc, (float) width, (float) height);
 	}
@@ -178,8 +178,8 @@ public class Ellipse extends Shape2D {
 		super.draw(g);
 		double xc = getX();
 		double yc = getY();
-		double width = getWidth();
-		double height = getHeight();
+		double width = getWidth() / 2;
+		double height = getHeight() / 2;
 		if (fillColor == null) {
 			g.drawOval((int) (xc - width), (int) (yc - height), (int) (width), (int) (height));
 		} else {
@@ -194,25 +194,43 @@ public class Ellipse extends Shape2D {
 	 * @return this ellipse as a PShape
 	 */
 	public PShape getPShape(PApplet applet) {
-		PShape p = applet.createShape(PApplet.ELLIPSE, (float) getX(), (float) getY(), (float) getWidth() * 2,
-				(float) getHeight() * 2);
+		PShape p = applet.createShape(PApplet.ELLIPSE, (float) getX(), (float) getY(), (float) getWidth(),
+				(float) getHeight());
 		return p;
 	}
 
-	protected double getWidth() {
-		return (this.line[1][0] - this.line[0][0]) / 2;
-	}
-
-	protected double getHeight() {
-		return (this.line[1][1] - this.line[0][1]) / 2;
-	}
-
-	protected double getX() {
+	/** @return x coordinate of the center of this ellipse */
+	public double getX() {
 		return (this.line[1][0] + this.line[0][0]) / 2;
 	}
 
-	protected double getY() {
+	/** @return y coordinate of the center of this ellipse */
+	public double getY() {
 		return (this.line[1][1] + this.line[0][1]) / 2;
+	}
+
+	/**
+	 * @param x
+	 *            the change in this shape's x coordinate
+	 * @param y
+	 *            the change in this shape's y coordinate
+	 * @return a new shape with shifted coordinates and otherwise same attributes as
+	 *         this one
+	 */
+	public Shape2D move(double x, double y) {
+		return moveTo(getX() + x, getY() + y);
+	}
+
+	/**
+	 * @param x
+	 *            the new shape's x coordinate
+	 * @param x
+	 *            the new shape's y coordinate
+	 * @return a new shape with different coordinates and otherwise same attributes
+	 *         as this one
+	 */
+	public Shape2D moveTo(double x, double y) {
+		return new Ellipse(x, y, getWidth() / 2, getHeight() / 2, super.color, super.weight, super.fillColor);
 	}
 
 }

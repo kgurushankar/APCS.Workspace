@@ -19,9 +19,10 @@ public abstract class Shape1D {
 	 * Shape is built around this
 	 */
 	protected double[][] line;
-
-	private Color color;
-	private double weight;
+	/** The color this shape will be drawn in */
+	protected Color color;
+	/** The weight of the line this shape will be drawn in */
+	protected double weight;
 
 	/**
 	 * Create a Shape1D that has the given coordinates
@@ -116,5 +117,11 @@ public abstract class Shape1D {
 	protected double getLength() {
 		return Math.sqrt(getdeltaX() * getdeltaX() + getdeltaY() * getdeltaY());
 	}
+
+	/** @return the x coordinate of this shape */
+	public abstract double getX();
+
+	/** @return the y coordinate of this shape */
+	public abstract double getY();
 
 }

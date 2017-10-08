@@ -209,4 +209,27 @@ public class Rectangle extends Shape2D {
 		return super.getLength();
 	}
 
+	@Override
+	public Shape2D move(double x, double y) {
+		return new Rectangle(getX() + x, getY() + y, getWidth(), getHeight(), super.color, super.weight,
+				super.fillColor);
+	}
+
+	@Override
+	public Shape2D moveTo(double x, double y) {
+		return new Rectangle(x, y, getWidth(), getHeight(), super.color, super.weight, super.fillColor);
+	}
+
+	@Override
+	public double getX() {
+		// TODO Auto-generated method stub
+		return line[0][0];
+	}
+
+	@Override
+	public double getY() {
+		// TODO Auto-generated method stub
+		return line[0][1];
+	}
+
 }

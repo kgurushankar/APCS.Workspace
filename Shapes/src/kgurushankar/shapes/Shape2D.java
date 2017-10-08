@@ -122,4 +122,18 @@ public abstract class Shape2D extends Shape1D {
 			applet.fill(fillColor.getRGB());
 	}
 
+	public abstract Shape2D move(double x, double y);
+
+	public abstract Shape2D moveTo(double x, double y);
+
+	/** @return width of this shape */
+	public double getWidth() {
+		return (this.line[1][0] - this.line[0][0]);
+	}
+
+	/** @return height of this shape */
+	public double getHeight() {
+		return (this.line[1][1] - this.line[0][1]);
+	}
+
 }

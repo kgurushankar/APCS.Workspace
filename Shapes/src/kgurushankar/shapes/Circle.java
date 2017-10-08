@@ -80,7 +80,7 @@ public class Circle extends Ellipse {
 	 *            y coordinate of the point
 	 * @return if a point is on the edge of the ellipse (the line drawn)
 	 */
-	public boolean onellipse(double x, double y) {
+	public boolean onEllipse(double x, double y) {
 		double r = (line[1][1] - line[0][1]) / 2;
 		double out = ((this.getX() - x) * (this.getX() - x) + (this.getY() - y) * (this.getY() - y) - r * r);
 		return out <= 0.001 && out >= -0.001;
@@ -94,8 +94,31 @@ public class Circle extends Ellipse {
 	 *            the point being checked
 	 * @return if a point is on the edge of the ellipse (the line drawn)
 	 */
-	public boolean onellipse(Point2D point) {
-		return onellipse(point.getX(), point.getY());
+	public boolean onEllipse(Point2D point) {
+		return onEllipse(point.getX(), point.getY());
 	}
 
+	/**
+	 * @param x
+	 *            the change in this shape's x coordinate
+	 * @param y
+	 *            the change in this shape's y coordinate
+	 * @return a new shape with shifted coordinates and otherwise same attributes as
+	 *         this one
+	 */
+	public Shape2D move(double x, double y) {
+		return new Circle(getX() + x, getY() + y, getWidth() / 2, super.color, super.weight, super.fillColor);
+	}
+
+	/**
+	 * @param x
+	 *            the new shape's x coordinate
+	 * @param x
+	 *            the new shape's y coordinate
+	 * @return a new shape with different coordinates and otherwise same attributes
+	 *         as this one
+	 */
+	public Shape2D moveTo(double x, double y) {
+		return new Circle(x, y, getWidth() / 2, super.color, super.weight, super.fillColor);
+	}
 }
