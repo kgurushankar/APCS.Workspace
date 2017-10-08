@@ -10,13 +10,14 @@ public class DrawingSurface extends PApplet {
 
 	public DrawingSurface() {
 		shape = new MovingShape(new Circle(100, 100, 30));
-		shape.setV(1, 1);
+		shape.setV(5, 5);
 	}
 
 	public void setup() {
 	}
 
 	public void draw() {
+		background(255);
 		shape.draw(this);
 		shape.act();
 	}

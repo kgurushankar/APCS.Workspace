@@ -7,7 +7,7 @@ public class MovingShape {
 	private Shape boundingShape;
 	private double vx;
 	private double vy;
-	public static final double friction = 0;
+	public static final double friction = .1;
 
 	public MovingShape(Shape s) {
 		this.boundingShape = s;
@@ -28,18 +28,26 @@ public class MovingShape {
 	}
 
 	public void setV(double vx, double vy) {
-		this.vy = vy;
-	}
-
-	public void setV() {
 		this.vx = vx;
+		this.vy = vy;
 	}
 
 	public void act() {
 		boundingShape.setX(boundingShape.getX() + vx);
 		boundingShape.setY(boundingShape.getY() + vy);
-		vx -= friction;
-		vy -= friction;
+		if (vx != 0)
+			vx -= (vx > 0) ? friction : -friction;
+		if (vy != 0)
+			vy -= (vy > 0) ? friction : -friction;
+	}
+
+	public void bounce() {
+		vx = -vx;
+		vy = -vy;
+	}
+	
+	public double getX() {
+		
 	}
 
 }
