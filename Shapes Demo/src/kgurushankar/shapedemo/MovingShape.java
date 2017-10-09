@@ -1,6 +1,6 @@
 package kgurushankar.shapedemo;
 
-import devansh.shapes.*;
+import devansh.shapes.Shape;
 import processing.core.PApplet;
 
 public class MovingShape {
@@ -45,20 +45,25 @@ public class MovingShape {
 		vx = -vx;
 		vy = -vy;
 	}
-	
-	public void bounce(double theta){
+
+	public void bounce(double theta) {
 		double vx = this.vx;
 		double vy = this.vy;
-		this.vx = -Math.cos(theta)*vx;
-		this.vy = -Math.sin(theta)*vy;
+		// Need to reslove vectors
+		this.vx = -Math.cos(theta) * vx;
+		this.vy = -Math.sin(theta) * vy;
 	}
-	
+
 	public double getX() {
 		return boundingShape.getX();
 	}
-	
+
 	public double getY() {
 		return boundingShape.getY();
+	}
+
+	public Shape getShape() {
+		return boundingShape;
 	}
 
 }

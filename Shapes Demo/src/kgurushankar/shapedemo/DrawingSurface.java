@@ -17,9 +17,19 @@ public class DrawingSurface extends PApplet {
 	}
 
 	public void draw() {
+		this.scale(height / HEIGHT, width / WIDTH);
 		background(255);
 		shape.draw(this);
 		shape.act();
 	}
 
+	public void mouseClicked() {
+		float scalex = (float) (width / WIDTH);
+		float scaley = (float) (height / HEIGHT);
+		int x = (int) (mouseX / scalex);
+		int y = (int) (mouseY / scaley);
+		if (shape.getShape().isPointInside(x, y)) {
+			
+		}
+	}
 }
