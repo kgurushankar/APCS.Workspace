@@ -46,8 +46,19 @@ public class MovingShape {
 		vy = -vy;
 	}
 	
+	public void bounce(double theta){
+		double vx = this.vx;
+		double vy = this.vy;
+		this.vx = -Math.cos(theta)*vx;
+		this.vy = -Math.sin(theta)*vy;
+	}
+	
 	public double getX() {
-		
+		return boundingShape.getX();
+	}
+	
+	public double getY() {
+		return boundingShape.getY();
 	}
 
 }
