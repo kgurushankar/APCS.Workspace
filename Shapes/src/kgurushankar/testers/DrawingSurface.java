@@ -1,7 +1,5 @@
 package kgurushankar.testers;
 
-import java.awt.Color;
-
 import kgurushankar.shapes.*;
 import processing.core.PApplet;
 

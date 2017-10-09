@@ -126,7 +126,10 @@ public class Circle extends Shape {
 	//Getters and Setters
 	
 
-	public double getRadius() {
+	public double getWidth() {
+		return radius;
+	}
+	public double getHeight() {
 		return radius;
 	}
 

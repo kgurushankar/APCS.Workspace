@@ -54,4 +54,6 @@ public abstract class Shape {
 	public void setY(double y) {
 		this.y = y;
 	}
+	public abstract double getWidth();
+	public abstract double getHeight();
 }

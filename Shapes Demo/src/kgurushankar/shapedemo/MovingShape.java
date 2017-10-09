@@ -67,4 +67,8 @@ public class MovingShape {
 		return boundingShape;
 	}
 
+	public void moveTo(double x, double y) {
+
+	}
+
 }
