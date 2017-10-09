@@ -7,7 +7,8 @@ public class MovingShape {
 	private Shape boundingShape;
 	private double vx;
 	private double vy;
-	public static final double friction = .1;
+	public static final double FRICTION_X = .1;
+	public static final double FRICTION_Y = .1;
 
 	public MovingShape(Shape s) {
 		this.boundingShape = s;
@@ -36,9 +37,9 @@ public class MovingShape {
 		boundingShape.setX(boundingShape.getX() + vx);
 		boundingShape.setY(boundingShape.getY() + vy);
 		if (vx != 0)
-			vx -= (vx > 0) ? friction : -friction;
+			vx -= (vx > 0) ? FRICTION_X : -FRICTION_X;
 		if (vy != 0)
-			vy -= (vy > 0) ? friction : -friction;
+			vy -= (vy > 0) ? FRICTION_Y : -FRICTION_Y;
 	}
 
 	public void bounce() {
@@ -49,7 +50,7 @@ public class MovingShape {
 	public void bounce(double theta) {
 		double vx = this.vx;
 		double vy = this.vy;
-		// Need to reslove vectors
+		// Need to resolve vectors
 		this.vx = -Math.cos(theta) * vx;
 		this.vy = -Math.sin(theta) * vy;
 	}
