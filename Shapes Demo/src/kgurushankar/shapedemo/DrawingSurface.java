@@ -1,61 +1,162 @@
 package kgurushankar.shapedemo;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
-import devansh.shapes.*;
+import devansh.shapes.Rectangle;
+import devansh.shapes.Shape;
+import devansh.shapes.Circle;
 import processing.core.PApplet;
 
 public class DrawingSurface extends PApplet {
-	private ArrayList<MovingShape> shapes = new ArrayList<MovingShape>();
+	private Shape[] menu;
+	private Rectangle[] boxes;
+	private Options selection;
 
-	public static final float WIDTH = 800;
+	private enum Options {
+		Rect, Circle, Shape
+	}
+
+	private ArrayList<MovingShape> shapes = new ArrayList<MovingShape>();
 	public static final float HEIGHT = 800;
-	private int mousexold, mouseyold;
+	public static final float WIDTH = 800;
+	private float pwidth;
+	private float pheight;
+	private Rectangle bounds;
 
 	public DrawingSurface() {
+		pwidth = WIDTH;
+		pheight = HEIGHT;
+		selection = null;
 
-		shapes.add(new MovingShape(new Circle(100, 100, 30)));
-		shapes.get(0).setV(10, 10);
+		// Menu and selection boxes
+		menu = new Shape[2];
+		boxes = new Rectangle[2];
+		menu[0] = new Rectangle(0, 0, 50, 50);
+		menu[0].fill(255, 255, 255);
+		boxes[0] = new Rectangle(menu[0].getX(), menu[0].getY(), menu[0].getWidth(), menu[0].getHeight());
+		menu[1] = new Circle(80, 25, 25);
+		menu[1].fill(255, 255, 255);
+		boxes[1] = new Rectangle(menu[1].getX() - menu[1].getWidth(), menu[1].getY() - menu[1].getHeight(),
+				menu[1].getWidth() * 2, menu[1].getHeight() * 2);
+
 	}
 
 	public void setup() {
+		bounds = new Rectangle(0, 0, width, height);
 	}
 
 	public void draw() {
-		// this.scale(height / HEIGHT, width / WIDTH);
 		background(255);
+		for (Shape s : menu) {
+			s.draw(this);
+		}
 		for (MovingShape s : shapes) {
 			s.draw(this);
-			s.act();
+			s.act(bounds);
 		}
-		System.out.println(shapes.get(0).getX()+ "  "+shapes.get(0).getY());
+		sizeChanged();
+	}
+
+	private void sizeChanged() {
+		if (width != pwidth || height != pheight) {
+			bounds = new Rectangle(0, 0, width, height);
+		}
 	}
 
 	private MovingShape activeShape;
 
-	public void mouseClicked() {
-		for (MovingShape s : shapes) {
-			if (s.getShape().isPointInside(mouseX, mouseY)) {
-				activeShape = s;
-				System.out.println("shape set");
+	public void mousePressed() {
+		if (mouseButton == LEFT) {
+			// Check for existing shape
+			for (MovingShape s : shapes) {
+				if (s.getShape().isPointInside(mouseX, mouseY)) {
+					activeShape = s;
+					selection = Options.Shape;
+					return;
+				}
 			}
+			// If selecting Shape
+			if (boxes[0].isPointInside(mouseX, mouseY)) {
+				selection = Options.Rect;
+				return;
+			} else if (boxes[1].isPointInside(mouseX, mouseY)) {
+				selection = Options.Circle;
+				return;
+			} // If shape selected and in drawing mode
+			else if (selection != null) {
+				MovingShape e = null;
+				if (selection == Options.Circle) {
+					e = new MovingShape(new Circle(mouseX, mouseY, 0), randomColor());
+				} else if (selection == Options.Rect) {
+					e = new MovingShape(new Rectangle(mouseX, mouseY, 0, 0), randomColor());
+				}
+				activeShape = e;
+				if (e != null)
+					shapes.add(e);
+
+			}
+		} else if (mouseButton == RIGHT) {
+			for (MovingShape s : shapes) {
+				if (s.getShape().isPointInside(mouseX, mouseY)) {
+					shapes.remove(s);
+					activeShape = null;
+					selection = null;
+					return;
+				}
+			}
+
 		}
 
 	}
 
 	public void mouseDragged() {
-		float scalex = (float) (width / WIDTH);
-		float scaley = (float) (height / HEIGHT);
-		int x = (int) (mouseX / scalex);
-		int y = (int) (mouseY / scaley);
-		mousexold = mouseX;
-		mouseyold = mouseY;
+		if (activeShape != null) {
+			if (selection == Options.Shape) {
 
+				if (inRange(mouseX, 0, width)) {
+					activeShape.moveX(mouseX);
+				}
+				if (inRange(mouseY, 0, height)) {
+					activeShape.moveY(mouseY);
+				}
+			} else if (selection == Options.Circle) {
+				shapes.remove(activeShape);
+				double x = activeShape.getX();
+				double y = activeShape.getY();
+				activeShape = new MovingShape(new Circle(x, y, Math.max(Math.abs(x - mouseX), Math.abs(y - mouseY))),
+						activeShape.getFillColor());
+				shapes.add(activeShape);
+			} else if (selection == Options.Rect) {
+				shapes.remove(activeShape);
+				double x = activeShape.getX();
+				double y = activeShape.getY();
+				activeShape = new MovingShape(
+						new Rectangle(activeShape.getX(), activeShape.getY(), -x + mouseX, -y + mouseY),
+						activeShape.getFillColor());
+
+				shapes.add(activeShape);
+			}
+		}
 	}
 
 	public void mouseReleased() {
-		if (activeShape != null) {
-			activeShape.setV(mouseX - mousexold, mouseY - mouseyold);
+		if (selection == Options.Shape) {
+			if (activeShape != null) {
+				double vx = mouseX - pmouseX;
+				double vy = mouseY - pmouseY;
+				activeShape.setV(vx, vy);
+			}
+			activeShape = null;
+			selection = null;
 		}
+	}
+
+	private boolean inRange(float x, float low, float high) {
+		return ((x >= low && x <= high) || (x <= low && x >= high));
+	}
+
+	private static Color randomColor() {
+		return new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255));
 	}
 }
