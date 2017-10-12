@@ -111,31 +111,34 @@ public class DrawingSurface extends PApplet {
 	}
 
 	public void mouseDragged() {
-		if (activeShape != null) {
-			if (selection == Options.Shape) {
+		if (mouseButton == LEFT) {
+			if (activeShape != null) {
+				if (selection == Options.Shape) {
 
-				if (inRange(mouseX, 0, width)) {
-					activeShape.moveX(mouseX);
-				}
-				if (inRange(mouseY, 0, height)) {
-					activeShape.moveY(mouseY);
-				}
-			} else if (selection == Options.Circle) {
-				shapes.remove(activeShape);
-				double x = activeShape.getX();
-				double y = activeShape.getY();
-				activeShape = new MovingShape(new Circle(x, y, Math.max(Math.abs(x - mouseX), Math.abs(y - mouseY))),
-						activeShape.getFillColor());
-				shapes.add(activeShape);
-			} else if (selection == Options.Rect) {
-				shapes.remove(activeShape);
-				double x = activeShape.getX();
-				double y = activeShape.getY();
-				activeShape = new MovingShape(
-						new Rectangle(activeShape.getX(), activeShape.getY(), -x + mouseX, -y + mouseY),
-						activeShape.getFillColor());
+					if (inRange(mouseX, 0, width)) {
+						activeShape.moveX(mouseX);
+					}
+					if (inRange(mouseY, 0, height)) {
+						activeShape.moveY(mouseY);
+					}
+				} else if (selection == Options.Circle) {
+					shapes.remove(activeShape);
+					double x = activeShape.getX();
+					double y = activeShape.getY();
+					activeShape = new MovingShape(
+							new Circle(x, y, Math.max(Math.abs(x - mouseX), Math.abs(y - mouseY))),
+							activeShape.getFillColor());
+					shapes.add(activeShape);
+				} else if (selection == Options.Rect) {
+					shapes.remove(activeShape);
+					double x = activeShape.getX();
+					double y = activeShape.getY();
+					activeShape = new MovingShape(
+							new Rectangle(activeShape.getX(), activeShape.getY(), -x + mouseX, -y + mouseY),
+							activeShape.getFillColor());
 
-				shapes.add(activeShape);
+					shapes.add(activeShape);
+				}
 			}
 		}
 	}
