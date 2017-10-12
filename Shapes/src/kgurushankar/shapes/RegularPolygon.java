@@ -1,7 +1,5 @@
 package kgurushankar.shapes;
 
-import java.awt.Color;
-
 import processing.core.PApplet;
 
 /**
@@ -13,7 +11,7 @@ public class RegularPolygon {
 	private int numSides;
 	private double sideLength;
 	private Circle out, in;
-	private Line[] sides;
+	private double[][] points;
 	private double x;
 	private double y;
 
@@ -44,7 +42,7 @@ public class RegularPolygon {
 		this.sideLength = sideLength;
 		calcR();
 		calcr();
-		setupLines();
+		setupSides();
 	}
 
 	/** @return internal angle of each vertex */
@@ -90,9 +88,12 @@ public class RegularPolygon {
 	 * @post draws this regular polygon on applet
 	 */
 	public void draw(PApplet applet) {
-		for (Line l : sides) {
-			l.draw(applet);
+		for (int i = 0; i < numSides - 1; i++) {
+			new Line((float) points[i][0], (float) points[i][1], (float) points[i + 1][0], (float) points[i + 1][1])
+					.draw(applet);
 		}
+		new Line((float) points[0][0], (float) points[0][1], (float) points[numSides - 1][0],
+				(float) points[numSides - 1][1]).draw(applet);
 	}
 
 	/**
@@ -119,20 +120,13 @@ public class RegularPolygon {
 	}
 
 	// figure this out!!
-	private void setupLines() {
-		double radius = getR() * 10;
+	private void setupSides() {
+		double radius = getR();
 		double angle = Math.PI * 2 / numSides;
-		double x1 = Math.cos(0) * radius, x2, y1 = Math.sin(0) * radius, y2;
-		sides = new Line[numSides];
-		int n = 0;
-		for (double a = angle; a < PApplet.TWO_PI; a += angle) {
-			x2 = x1;
-			y2 = x2;
-			x1 = Math.cos(a) * radius;
-			y1 = Math.sin(a) * radius;
-			sides[n] = new Line((float) (x1 + x), (float) (y1 + y), (float) (x2 + x), (float) (y2 + y), randomColor(),
-					2);
-			n++;
+		points = new double[numSides][2];
+		for (int i = 0; i < numSides; i++) {
+			points[i][0] = radius * Math.cos(angle * i + Math.PI / 4) + x;
+			points[i][1] = radius * Math.sin(angle * i + Math.PI / 4) + y;
 		}
 	}
 
@@ -146,7 +140,4 @@ public class RegularPolygon {
 		out = new Circle(x, y, R);
 	}
 
-	private static Color randomColor() {
-		return new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255));
-	}
 }
