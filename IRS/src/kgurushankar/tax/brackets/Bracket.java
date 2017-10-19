@@ -7,7 +7,7 @@ public abstract class Bracket {
 		for (int i = 0; i < status.length; i++) {
 			out.append(i + "-" + status[i] + " ");
 		}
-		return out.toString();
+		return out.toString().trim();
 	}
 
 	public abstract String[] getStatus();
@@ -46,4 +46,26 @@ public abstract class Bracket {
 		}
 	}
 
+	public static class US2017 extends Bracket {
+		private static final String status[] = { "Single", "Married", "Head of Household" };
+		// [status][level] = %
+		private static final double[][] percentages = { { 0.10, 0.15, 0.25, 0.28, 0.33, 0.35, 0.396 },
+				{ 0.10, 0.15, 0.25, 0.28, 0.33, 0.35, 0.396 }, { 0.10, 0.15, 0.25, 0.28, 0.33, 0.35, 0.396 } };
+
+		private static final int[][] brackets = { { 0, 9325, 37950, 91900, 191650, 416700, 418400 },
+				{ 0, 18650, 75900, 153100, 233350, 416700, 470700 },
+				{ 0, 13350, 50800, 131200, 212500, 416700, 444500 } };
+
+		public String[] getStatus() {
+			return status;
+		}
+
+		public double[][] getPercentages() {
+			return percentages;
+		}
+
+		public int[][] getBrackets() {
+			return brackets;
+		}
+	}
 }
