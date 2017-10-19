@@ -38,7 +38,7 @@ public class TaxCalculator {
 			} else if (income >= 65550) {
 				out = (income - 65550) * .305d + 14645;
 			} else if (income >= 27050) {
-				out = (income - 27050) * .275 + 4057.5;
+				out = (income - 27050) * .275d + 4057.5;
 			} else if (income >= 0) {
 				out = (income) * .15;
 			}
@@ -50,7 +50,7 @@ public class TaxCalculator {
 			} else if (income >= 109250) {
 				out = (income - 109250) * .305d + 24393.75;
 			} else if (income >= 45200) {
-				out = (income - 45200) * .271d + 6780;
+				out = (income - 45200) * .275d + 6780;
 			} else if (income >= 0) {
 				out = (income) * .15d;
 			}
