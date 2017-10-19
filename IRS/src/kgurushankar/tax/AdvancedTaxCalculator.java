@@ -1,7 +1,5 @@
 package kgurushankar.tax;
 
-import kgurushankar.tax.brackets.Bracket;
-
 public class AdvancedTaxCalculator extends TaxCalculator {
 	private Bracket bracket;
 

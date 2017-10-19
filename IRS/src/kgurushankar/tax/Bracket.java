@@ -1,4 +1,4 @@
-package kgurushankar.tax.brackets;
+package kgurushankar.tax;
 
 public abstract class Bracket {
 	public String getStatusList() {

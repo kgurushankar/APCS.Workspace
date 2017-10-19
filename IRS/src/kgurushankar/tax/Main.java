@@ -2,8 +2,6 @@ package kgurushankar.tax;
 
 import java.util.Scanner;
 
-import kgurushankar.tax.brackets.*;
-
 public class Main {
 
 	public static void main(String[] args) {
