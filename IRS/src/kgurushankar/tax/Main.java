@@ -11,9 +11,9 @@ public class Main {
 		String status = in.nextLine();
 		System.out.print("Enter taxable income: $ ");
 		String income = in.nextLine();
-		double tax = t.calculateTax(status, income);
-		if (tax != -1.0) {
-			System.out.println("Your Federal tax is $ " + tax);
+		String tax = t.calculateTax(status, income);
+		if (!tax.equals("-1")) {
+			System.out.println("Your Federal tax is " + tax);
 		} else {
 			System.out.println("Please enter valid numbers");
 			main(args);

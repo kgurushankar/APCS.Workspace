@@ -1,33 +1,35 @@
 package kgurushankar.tax;
 
-public class AdvancedTaxCalculator extends TaxCalculator {
+import java.text.NumberFormat;
+
+public class AdvancedTaxCalculator {
 	private Bracket bracket;
 
 	public AdvancedTaxCalculator(Bracket b) {
 		this.bracket = b;
 	}
 
-	public double calculateTax(String status, String income) {
+	public String calculateTax(String status, String income) {
 		int s;
 		double i;
 		try {
 			s = Integer.parseInt(status.trim());
 		} catch (Exception e) {
-			return -1;
+			return "-1";
 		}
 		try {
 			i = Double.parseDouble(income.trim());
 		} catch (Exception e) {
-			return -1;
+			return "-1";
 		}
 		if (s < 0 || s >= bracket.getStatus().length) {
-			return -1;
+			return "-1";
 		}
 
 		return calculateTax(s, i);
 	}
 
-	public double calculateTax(int status, double income) {
+	public String calculateTax(int status, double income) {
 		double out = -1;
 		int[] brackets = bracket.getBrackets(status);
 		double[] percentages = bracket.getPercentages(status);
@@ -38,11 +40,12 @@ public class AdvancedTaxCalculator extends TaxCalculator {
 		}
 		out += percentages[i] * (income - brackets[i]);
 		if (Math.abs(out + 1) < 1e-7) {
-			return -1;
+			return "-1";
 		} else {
 			out += 1;
 		}
-		return (int) (Math.round(out * 100)) / 100d;
+		NumberFormat nf = NumberFormat.getCurrencyInstance();
+		return nf.format(out);
 	}
 
 	public Bracket getBracket() {
