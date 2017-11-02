@@ -1,6 +1,6 @@
 package kgurushankar.checkmail;
 
-/** @author */
+/** Flowchart Author: Andrew Scott */
 public class Package {
 	private int x, y, z;
 	private double weight;
