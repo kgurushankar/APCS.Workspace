@@ -1,3 +1,4 @@
+package kgurushankar.sevensegment;
 
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;

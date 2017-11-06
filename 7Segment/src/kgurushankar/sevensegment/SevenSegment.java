@@ -1,3 +1,4 @@
+package kgurushankar.sevensegment;
 
 /*
  * This class simulates a hardware 7-segment display, including logic to
@@ -76,7 +77,6 @@ public class SevenSegment extends JPanel implements ActionListener {
 			int mask = (int) Math.pow(2, i);
 			number[i] = ((counter & mask) == mask);
 		}
-		System.out.println(counter);
 
 		// TO DO: Complete the conditions below.
 		// number[] contains the bits of the currently stored number in the form of a
