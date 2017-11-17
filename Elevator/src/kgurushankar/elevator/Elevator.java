@@ -10,6 +10,8 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class Elevator extends JPanel implements ActionListener {
+	private static final long serialVersionUID = 1L;
+
 	private static final int ACT_LAG_TIME = 2000;
 
 	private JButton swingAct;

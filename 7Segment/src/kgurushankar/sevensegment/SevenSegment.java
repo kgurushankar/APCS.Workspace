@@ -12,6 +12,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class SevenSegment extends JPanel implements ActionListener {
+	private static final long serialVersionUID = 1L;
 	private boolean[] segments;
 	private RoundRectangle2D.Double[] segments2;
 

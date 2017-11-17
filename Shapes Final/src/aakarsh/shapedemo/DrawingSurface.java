@@ -1,6 +1,5 @@
 package aakarsh.shapedemo;
 
-import java.awt.Color;
 import java.awt.event.KeyEvent;
 
 import kgurushankar.shapes.*;
@@ -9,17 +8,12 @@ import processing.core.PApplet;
 public class DrawingSurface extends PApplet {
 
 	private PhysicsShape shapeA, shapeB;
-	private Line lineTop, lineBot, lineRight, lineLeft;
 	public static final float DRAWING_WIDTH = 400;
 	public static final float DRAWING_HEIGHT = 300;
 
 	public DrawingSurface() {
 		shapeA = new PhysicsShape(new Circle(100, 100, 30));
 		shapeB = new PhysicsShape(new Rectangle(200, 200, 30, 30));
-		lineTop = new Line(0, 0, 400, 0);
-		lineBot = new Line(0, 300, 400, 300);
-		lineRight = new Line(0, 0, 0, 300);
-		lineLeft = new Line(400, 0, 400, 300);
 	}
 
 	/**

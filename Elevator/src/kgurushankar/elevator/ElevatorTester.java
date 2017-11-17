@@ -6,6 +6,7 @@ import java.awt.event.*;
 
 public class ElevatorTester extends JPanel implements ActionListener {
 
+	private static final long serialVersionUID = 1L;
 	private JButton[] buttons;
 	private JButton act;
 	private Elevator theElevator;
