@@ -2,9 +2,11 @@ package kgurushankar.arraystatistics;
 
 public class Main {
 	public static void main(String args[]) {
-		int[] arr = new int[1000];
 		for (int i = 0; i < 5; i++) {
+			int[] arr = new int[10000];
 			System.out.println("File number: " + i);
+			int l = new ArrayReader("Data/numbers" + i + ".txt").fillArray(arr);
+			arr = new int[l];
 			new ArrayReader("Data/numbers" + i + ".txt").fillArray(arr);
 			Statistics s = new Statistics(arr);
 			System.out.println(s.average());

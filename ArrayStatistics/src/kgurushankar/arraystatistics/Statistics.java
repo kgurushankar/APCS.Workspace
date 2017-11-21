@@ -1,6 +1,5 @@
 package kgurushankar.arraystatistics;
 
-
 public class Statistics {
 	private int[] arr;
 
@@ -9,19 +8,19 @@ public class Statistics {
 		// Arrays.sort(this.arr);
 	}
 
-	public int average() {
+	public double average() {
 		long out = 0;
 		for (int x : arr) {
 			out += x;
 		}
-		return (int) (out / (double) (arr.length) + 0.5);
+		return (out / (double) (arr.length));
 	}
 
 	public double standardOfDeviation() {
-		int avg = average();
-		long sq = 0;
+		double avg = average();
+		double sq = 0;
 		for (int x : arr) {
-			int dif = (avg - x);
+			double dif = (avg - x);
 			sq += dif * dif;
 		}
 		double x = sq / (arr.length - 1);
