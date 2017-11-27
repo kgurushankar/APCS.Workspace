@@ -1,11 +1,20 @@
 package kgurushankar.arraystatistics;
 
+import java.util.Arrays;
+
 public class Statistics {
 	private int[] arr;
+	private int length;
 
 	public Statistics(int[] arr) {
 		this.arr = arr;
-		// Arrays.sort(this.arr);
+		Arrays.sort(this.arr);
+	}
+
+	public Statistics(int[] arr, int l) {
+		this.arr = arr;
+		this.length = l;
+		Arrays.sort(this.arr, 0, l);
 	}
 
 	public double average() {
@@ -36,8 +45,8 @@ public class Statistics {
 
 	public int[] mode() {
 		int[] count = new int[101];
-		for (int x : arr) {
-			count[x]++;
+		for (int i = 0; i < length; i++) {
+			count[arr[i]]++;
 		}
 		int max = 0;
 		int len = 0;

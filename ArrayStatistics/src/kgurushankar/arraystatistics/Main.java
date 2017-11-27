@@ -6,9 +6,7 @@ public class Main {
 			int[] arr = new int[10000];
 			System.out.println("File number: " + i);
 			int l = new ArrayReader("Data/numbers" + i + ".txt").fillArray(arr);
-			arr = new int[l];
-			new ArrayReader("Data/numbers" + i + ".txt").fillArray(arr);
-			Statistics s = new Statistics(arr);
+			Statistics s = new Statistics(arr,l);
 			System.out.println(s.average());
 			System.out.println(s.standardOfDeviation());
 			for (int x : s.mode()) {
