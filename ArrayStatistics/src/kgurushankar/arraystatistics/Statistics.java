@@ -8,13 +8,13 @@ public class Statistics {
 
 	public Statistics(int[] arr) {
 		this.arr = arr;
-		Arrays.sort(this.arr);
+		// Arrays.sort(this.arr);
 	}
 
 	public Statistics(int[] arr, int l) {
 		this.arr = arr;
 		this.length = l;
-		Arrays.sort(this.arr, 0, l);
+		// Arrays.sort(this.arr, 0, l);
 	}
 
 	public double average() {
@@ -22,7 +22,7 @@ public class Statistics {
 		for (int x : arr) {
 			out += x;
 		}
-		return (out / (double) (arr.length));
+		return (out / (double) (length));
 	}
 
 	public double standardOfDeviation() {
@@ -32,7 +32,7 @@ public class Statistics {
 			double dif = (avg - x);
 			sq += dif * dif;
 		}
-		double x = sq / (arr.length - 1);
+		double x = sq / (length - 1);
 		return Math.sqrt(x);
 	}
 
@@ -68,4 +68,40 @@ public class Statistics {
 		}
 		return out;
 	}
+
+	public String getData() {
+		String out = "[";
+		for (int i = 0; i < length - 1; i++) {
+			out += arr[i] + ", ";
+		}
+		out += arr[length - 1] + "]";
+		return out;
+	}
+
+	public void printData() {
+		System.out.println(getData());
+	}
+
+	public int compact() {
+		return compact(0);
+	}
+
+	public int compact(int bad) {
+		boolean done = false;
+		while (!done) {
+			done = true;
+			for (int i = 0; i < length - 1; i++) {
+				if (arr[i] == bad) {
+					done = false;
+					arr[i] = arr[i + 1];
+					arr[i + 1] = 0;
+				}
+			}
+			if (arr[length - 1] == 0) {
+				length--;
+			}
+		}
+		return length;
+	}
+
 }
