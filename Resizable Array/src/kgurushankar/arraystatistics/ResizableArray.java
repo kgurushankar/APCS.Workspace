@@ -89,7 +89,7 @@ public class ResizableArray {
 
 	public int remove(int index) {
 		if (index >= size) {
-			throw new IndexOutOfBoundsException("Index:" + index+" Size:"+size);
+			throw new IndexOutOfBoundsException("Index:" + index + " Size:" + size);
 		}
 		int out = data[index];
 		for (int i = index; i < size - 1; i++) {
@@ -100,6 +100,9 @@ public class ResizableArray {
 	}
 
 	public String toString() {
+		if (size == 0) {
+			return "[]";
+		}
 		String out = "[";
 		for (int i = 0; i < size - 1; i++) {
 			out += data[i] + ", ";
@@ -149,7 +152,7 @@ public class ResizableArray {
 
 	public int get(int index) {
 		if (index >= size) {
-			throw new IndexOutOfBoundsException("Index:" + index+" Size:"+size);
+			throw new IndexOutOfBoundsException("Index:" + index + " Size:" + size);
 		}
 		return data[index];
 	}
