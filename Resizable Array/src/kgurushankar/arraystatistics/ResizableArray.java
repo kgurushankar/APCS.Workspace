@@ -94,7 +94,7 @@ public class ResizableArray {
 			throw new IndexOutOfBoundsException("Insufficent Space in array");
 		}
 
-		for (int i = size - 1; i <= index; i++) {
+		for (int i = size-1; i >= index; i--) {
 			data[i + value.length] = data[i];
 		}
 		for (int i = 0; i < value.length; i++) {
