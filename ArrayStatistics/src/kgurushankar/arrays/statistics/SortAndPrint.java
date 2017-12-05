@@ -1,4 +1,4 @@
-package kgurushankar.arraystatistics;
+package kgurushankar.arrays.statistics;
 
 import java.util.Arrays;
 

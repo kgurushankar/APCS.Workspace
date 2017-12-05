@@ -1,4 +1,4 @@
-import kgurushankar.arraystatistics.ResizableArray;
+import kgurushankar.arrays.ResizableArray;
 
 /**
  * ResizableArrayTester.java
@@ -24,8 +24,12 @@ public class ResizableArrayTester {
 		// Only run 1 test at a time (so that memory and timing data is as accurate as
 		// possible).
 
-		// worker.runFirstWaveFunctionalTest();
-		// worker.runFunctionalTest();
+		worker.runFirstWaveFunctionalTest();
+		worker.tester = new ResizableArray();
+
+		worker.runFunctionalTest();
+		worker.tester = new ResizableArray();
+
 		worker.runEfficiencyTest(10000);
 
 		worker.runDown();

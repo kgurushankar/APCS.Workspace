@@ -1,5 +1,6 @@
-package kgurushankar.resizablearray;
+package kgurushankar.arrays;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 
 // Add, Remove, size, removeAll, insert, getData, set,
@@ -10,14 +11,15 @@ import java.util.Arrays;
 
 //BTW index cannot be <0
 /***
- * * A resizable array that can store integers
- * 
- * @author kgurushankar
+ * * A resizable array that can store any data type
  *
+ * @author kgurushankar
+ * @param Type
+ *            the data type this array will store
  */
-public class ResizableArray {
+public class GenericResizableArray<Type> {
 	/** Partially Filled array for data */
-	private int data[];
+	private Type data[];
 	/** Real size of the array (any data below this is useful data) */
 	private int size;
 	/** Default size of the <code>ResizableArray</code> */
@@ -29,28 +31,28 @@ public class ResizableArray {
 	private static final int SIZE_INCREMENT = Short.MAX_VALUE >> 4;
 
 	/** Creates a new <code>ResizableArray</code> */
-	public ResizableArray() {
+	public GenericResizableArray() {
 		this(MAX_SIZE);
 	}
 
 	/**
 	 * Creates a new <code>ResizableArray</code> with an initial size
-	 * 
+	 *
 	 * @param size
 	 *            the size of the <code>ResizableArray</code>
 	 */
-	public ResizableArray(int size) {
-		data = new int[size];
+	public GenericResizableArray(int size) {
+		data = Array.newInstance(data.getClass(), size);
 		this.size = 0;
 	}
 
 	/**
 	 * Creates a new <code>ResizableArray</code> with the data in the array
-	 * 
+	 *
 	 * @param values
 	 *            the data to store in the <code>ResizableArray</code>
 	 */
-	public ResizableArray(int[] values) {
+	public GenericResizableArray(int[] values) {
 		this();
 		add(values);
 	}
@@ -58,13 +60,13 @@ public class ResizableArray {
 	/**
 	 * Creates a new <code>ResizableArray</code> with the data in the array and an
 	 * initial size
-	 * 
+	 *
 	 * @param values
 	 *            the data to store in the <code>ResizableArray</code>
 	 * @param size
 	 *            the size of the <code>ResizableArray</code>
 	 */
-	public ResizableArray(int[] values, int size) {
+	public GenericResizableArray(int[] values, int size) {
 		this(size);
 		add(values);
 	}
@@ -72,11 +74,11 @@ public class ResizableArray {
 	/**
 	 * Creates a new <code>ResizableArray</code> that is a copy of the other
 	 * ResizableArray
-	 * 
+	 *
 	 * @param other
 	 *            the <code>ResizableArray</code> to be copied
 	 */
-	public ResizableArray(ResizableArray other) {
+	public GenericResizableArray(GenericResizableArray other) {
 		this();
 		add(other.toArray());
 		this.size = other.size;
@@ -84,7 +86,7 @@ public class ResizableArray {
 
 	/**
 	 * Add value to the end of this <code>ResizableArray</code>
-	 * 
+	 *
 	 * @param value
 	 *            the value to be added
 	 */
@@ -98,7 +100,7 @@ public class ResizableArray {
 
 	/**
 	 * Adds the values in the array to the end of this <code>ResizableArray</code>
-	 * 
+	 *
 	 * @param values
 	 *            the array to be added
 	 */
@@ -111,11 +113,11 @@ public class ResizableArray {
 	/**
 	 * Adds the values in the other <code>ResizableArray</code> to the end of this
 	 * <code>ResizableArray</code>
-	 * 
+	 *
 	 * @param other
 	 *            the other <code>ResizableArray</code>
 	 */
-	public void add(ResizableArray other) {
+	public void add(GenericResizableArray other) {
 		add(other.toArray());
 	}
 
@@ -125,7 +127,7 @@ public class ResizableArray {
 	}
 
 	public boolean equals(Object obj) {
-		ResizableArray other = (ResizableArray) obj;
+		GenericResizableArray other = (GenericResizableArray) obj;
 		if (other.size != this.size) {
 			return false;
 		} else {
@@ -140,7 +142,7 @@ public class ResizableArray {
 
 	/**
 	 * Get the value of the <code>ResizableArray</code> at the index
-	 * 
+	 *
 	 * @param index
 	 *            the index of the data
 	 */
@@ -157,12 +159,12 @@ public class ResizableArray {
 	 * the array represented by this <code>ResizableArray</code> object, then the
 	 * index of the first such occurrence is returned. For values of num, this is
 	 * the smallest value k such that: <blockquote>this.get(k) == num</blockquote>
-	 * 
+	 *
 	 * is true.
-	 * 
+	 *
 	 * If no such number occurs in this <code>ResizableArray</code>, then -1 is
 	 * returned.
-	 * 
+	 *
 	 * @param num
 	 *            a number
 	 * @return the index of the first occurrence of the number in the array
@@ -179,7 +181,7 @@ public class ResizableArray {
 
 	/**
 	 * Insert the given value at the index
-	 * 
+	 *
 	 * @param index
 	 *            index to add the value at
 	 * @param value
@@ -191,7 +193,7 @@ public class ResizableArray {
 
 	/**
 	 * Insert the values starting at the index
-	 * 
+	 *
 	 * @param index
 	 *            index to add the value at
 	 * @param value
@@ -205,8 +207,8 @@ public class ResizableArray {
 			extendData();
 		}
 
-        for (int i = size-1; i >= index; i--) {
-            data[i + value.length] = data[i];
+		for (int i = size - 1; i >= index; i--) {
+			data[i + value.length] = data[i];
 		}
 		for (int i = 0; i < value.length; i++) {
 			data[i + index] = value[i];
@@ -216,7 +218,7 @@ public class ResizableArray {
 
 	/**
 	 * Remove the value at the index
-	 * 
+	 *
 	 * @param index
 	 *            index to remove
 	 * @return the value that was removed
@@ -235,7 +237,7 @@ public class ResizableArray {
 
 	/**
 	 * Remove a range from this <code>ResizableArray</code>
-	 * 
+	 *
 	 * @param start
 	 *            index to start removing at
 	 * @param end
@@ -267,7 +269,7 @@ public class ResizableArray {
 
 	/**
 	 * Remove all instances of the number
-	 * 
+	 *
 	 * @param number
 	 *            the number to remove
 	 */
@@ -285,7 +287,7 @@ public class ResizableArray {
 
 	/**
 	 * Replace all instances of one number with another number
-	 * 
+	 *
 	 * @param Old
 	 *            the number to be replaced
 	 * @param New
@@ -299,7 +301,7 @@ public class ResizableArray {
 
 	/**
 	 * Reverses the <code>ResizableArray</code>
-	 * 
+	 *
 	 */
 	public void reverse() {
 		int temp;
@@ -312,7 +314,7 @@ public class ResizableArray {
 
 	/**
 	 * Set the value at the index
-	 * 
+	 *
 	 * @param index
 	 *            the index to set
 	 * @param value
@@ -326,7 +328,7 @@ public class ResizableArray {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return the size of the array
 	 */
 	public int size() {
@@ -342,14 +344,14 @@ public class ResizableArray {
 
 	/**
 	 * Get a subset of this <code>ResizableArray</code>
-	 * 
+	 *
 	 * @param start
 	 *            the index of the first number
 	 * @param end
 	 *            the index of the last number
 	 * @return a <code>ResizableArray</code> with the subset of data
 	 */
-	public ResizableArray subset(int start, int end) {
+	public GenericResizableArray subset(int start, int end) {
 		if (end >= size) {
 			throw new IndexOutOfBoundsException("Index:" + end + " Size:" + size);
 		} else if (start < 0) {
@@ -357,12 +359,12 @@ public class ResizableArray {
 		} else if (end < start) {
 			throw new IllegalArgumentException("Cannot end before starting");
 		}
-		ResizableArray out = new ResizableArray(this.toArray(start, end));
+		GenericResizableArray out = new GenericResizableArray(this.toArray(start, end));
 		return out;
 	}
 
 	/**
-	 * 
+	 *
 	 * @return the data in this <code>ResizableArray</code> as an integer array
 	 */
 	public int[] toArray() {
@@ -383,7 +385,7 @@ public class ResizableArray {
 
 	/**
 	 * Extend the data storage array by {@value #SIZE_INCREMENT} values
-	 * 
+	 *
 	 */
 	private void extendData() {
 		extendData(SIZE_INCREMENT);
@@ -391,7 +393,7 @@ public class ResizableArray {
 
 	/**
 	 * Return a subset of this <code>ResizableArray</code> as an integer array
-	 * 
+	 *
 	 * @param start
 	 *            the index to start at
 	 * @param end
@@ -416,7 +418,7 @@ public class ResizableArray {
 
 	/**
 	 * Extend the data storage array by number values
-	 * 
+	 *
 	 * @param number
 	 *            the number of values to add
 	 */
