@@ -1,0 +1,18 @@
+Functional:
+[1, 1, 2, 3, 5, 8, 13]
+true
+false
+Caught exception from a bad insert (this is a good thing). Message: Index:10 Size:7
+Caught exception from a bad remove (this is also a good thing). Message: Index:10 Size:7
+[1, 1, 2, 3, 5, 8, 13]
+true
+The test took 3 milliseconds.
+And -676016 bytes of memory.
+
+Efficiency (10000):
+The test took 131 milliseconds.
+And -594960 bytes of memory.
+
+Efficiency (100000):
+The test took 10700 milliseconds.
+And 124872 bytes of memory.
