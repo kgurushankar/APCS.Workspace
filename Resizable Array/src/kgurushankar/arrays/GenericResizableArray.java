@@ -20,15 +20,15 @@ public class GenericResizableArray {
 	private Object data[];
 
 	/** Real size of the array (any data below this index is useful data) */
-	private Object size;
+	private int size;
 
 	/** Default size of the <code>ResizableArray</code> */
-	private static final Object DEFAULT_SIZE = Short.MAX_VALUE >> 6;
+	private static final int DEFAULT_SIZE = Short.MAX_VALUE >> 6;
 	/**
 	 * The default number of values to add to the data array if there is no more
 	 * space
 	 */
-	private static final Object SIZE_INCREMENT = Short.MAX_VALUE >> 8;
+	private static final int SIZE_INCREMENT = Short.MAX_VALUE >> 8;
 
 	/** Creates a new <code>ResizableArray</code> */
 	public GenericResizableArray() {
@@ -41,7 +41,7 @@ public class GenericResizableArray {
 	 * @param size
 	 *            the size of the <code>ResizableArray</code>
 	 */
-	public GenericResizableArray(Object size) {
+	public GenericResizableArray(int size) {
 		data = new Object[size];
 		this.size = 0;
 	}
@@ -66,7 +66,7 @@ public class GenericResizableArray {
 	 * @param size
 	 *            the size of the <code>ResizableArray</code>
 	 */
-	public GenericResizableArray(Object[] values, Object size) {
+	public GenericResizableArray(Object[] values, int size) {
 		this(size);
 		add(values);
 	}
@@ -131,7 +131,7 @@ public class GenericResizableArray {
 		if (other.size != this.size) {
 			return false;
 		} else {
-			for (Object i = 0; i < this.size; i++) {
+			for (int i = 0; i < this.size; i++) {
 				if (this.data[i] != other.data[i]) {
 					return false;
 				}
@@ -146,7 +146,7 @@ public class GenericResizableArray {
 	 * @param index
 	 *            the index of the data
 	 */
-	public Object get(Object index) {
+	public Object get(int index) {
 		if (index >= size || index < 0) {
 			throw new IndexOutOfBoundsException("Index:" + index + " Size:" + size);
 		}
@@ -155,25 +155,60 @@ public class GenericResizableArray {
 
 	/**
 	 * Returns the index within this <code>ResizableArray</code> of the first
-	 * occurrence of the specified number. If a number with a value of num occurs in
-	 * the array represented by this <code>ResizableArray</code> object, then the
-	 * index of the first such occurrence is returned. For values of num, this is
-	 * the smallest value k such that: <blockquote>this.get(k) == num</blockquote>
+	 * occurrence of the specified Object. If an object with the with a value of obj
+	 * occurs in the array represented by this <code>ResizableArray</code> object,
+	 * then the index of the first such occurrence is returned. <br />
+	 * For values of obj, this is the smallest value k such that:
+	 * <blockquote>this.get(k).equals(obj)</blockquote>
 	 *
-	 * is true.
-	 *
+	 * is true. <br />
 	 * If no such number occurs in this <code>ResizableArray</code>, then -1 is
 	 * returned.
 	 *
-	 * @param num
-	 *            a number
-	 * @return the index of the first occurrence of the number in the array
+	 * @param obj
+	 *            an object
+	 * @return the index of the first occurrence of the object in the array
 	 *         represented by this object, or -1 if the number does not occur.
 	 */
-	public Object indexOf(Object num) {
-		for (Object i = 0; i < size; i++) {
-			if (data[i] == num) {
-				return i;
+	public int indexOf(Object obj) {
+		return indexOf(obj, false);
+	}
+
+	/**
+	 * Returns the index within this <code>ResizableArray</code> of the first
+	 * occurrence of the specified Object. If an object with the with a value of obj
+	 * occurs in the array represented by this <code>ResizableArray</code> object,
+	 * then the index of the first such occurrence is returned. <br />
+	 * If running in strict mode, For values of obj, this is the smallest value k
+	 * such that: <blockquote>this.get(k) == obj</blockquote>
+	 *
+	 * is true. <br />
+	 * If not running in strict mode, For values of obj, this is the smallest value
+	 * k such that: <blockquote>this.get(k).equals(obj)</blockquote>
+	 *
+	 * is true. <br />
+	 * If no such number occurs in this <code>ResizableArray</code>, then -1 is
+	 * returned.
+	 *
+	 * @param obj
+	 *            an object
+	 * @param strictMode
+	 *            run in strict mode
+	 * @return the index of the first occurrence of the object in the array
+	 *         represented by this object, or -1 if the number does not occur.
+	 */
+	public int indexOf(Object obj, boolean strictMode) {
+		if (strictMode) {
+			for (int i = 0; i < size; i++) {
+				if (data[i] == obj) {
+					return i;
+				}
+			}
+		} else {
+			for (int i = 0; i < size; i++) {
+				if (data[i].equals(obj)) {
+					return i;
+				}
 			}
 		}
 		return -1;
@@ -187,7 +222,7 @@ public class GenericResizableArray {
 	 * @param value
 	 *            value to add
 	 */
-	public void insert(Object index, Object value) {
+	public void insert(int index, Object value) {
 		insert(index, new Object[] { value });
 	}
 
@@ -199,7 +234,7 @@ public class GenericResizableArray {
 	 * @param value
 	 *            values to add
 	 */
-	public void insert(Object index, Object[] value) {
+	public void insert(int index, Object[] value) {
 		if (index > size || index < 0) {
 			throw new IndexOutOfBoundsException("Index:" + index + " Size:" + size);
 		}
@@ -207,10 +242,10 @@ public class GenericResizableArray {
 			resize();
 		}
 
-		for (Object i = size - 1; i >= index; i--) {
+		for (int i = size - 1; i >= index; i--) {
 			data[i + value.length] = data[i];
 		}
-		for (Object i = 0; i < value.length; i++) {
+		for (int i = 0; i < value.length; i++) {
 			data[i + index] = value[i];
 		}
 		size += value.length;
@@ -223,12 +258,12 @@ public class GenericResizableArray {
 	 *            index to remove
 	 * @return the value that was removed
 	 */
-	public Object remove(Object index) {
+	public Object remove(int index) {
 		if (index >= size || index < 0) {
 			throw new IndexOutOfBoundsException("Index:" + index + " Size:" + size);
 		}
 		Object out = data[index];
-		for (Object i = index; i < size - 1; i++) {
+		for (int i = index; i < size - 1; i++) {
 			data[i] = data[i + 1];
 		}
 		size--;
@@ -244,8 +279,8 @@ public class GenericResizableArray {
 	 *            index of last value to remove
 	 * @return the value that was removed
 	 */
-	public Object[] remove(Object start, Object end) {
-		Object len = end - start;
+	public Object[] remove(int start, int end) {
+		int len = end - start;
 		if (end >= size) {
 			throw new IndexOutOfBoundsException("Index:" + end + " Size:" + size);
 		} else if (start < 0) {
@@ -256,10 +291,10 @@ public class GenericResizableArray {
 			return new Object[0];
 		}
 		Object out[] = new Object[len];
-		for (Object i = 0; i <= len; i++) {
+		for (int i = 0; i <= len; i++) {
 			out[i] = data[start + i];
 		}
-		for (Object i = start; i < size - len; i++) {
+		for (int i = start; i < size - len; i++) {
 			data[i] = data[i + len];
 		}
 		size -= len;
@@ -268,15 +303,15 @@ public class GenericResizableArray {
 	}
 
 	/**
-	 * Remove all instances of the number
+	 * Remove all instances of the item
 	 *
-	 * @param number
-	 *            the number to remove
+	 * @param item
+	 *            the item to remove
 	 */
-	public void removeAll(Object number) {
-		Object bads = 0;
-		for (Object i = 0; i < size; i++) {
-			if (data[i] == number) {
+	public void removeAll(Object item) {
+		int bads = 0;
+		for (int i = 0; i < size; i++) {
+			if (data.equals(item)) {
 				bads++;
 			} else {
 				data[i - bads] = data[i];
@@ -294,7 +329,7 @@ public class GenericResizableArray {
 	 *            the number that is put in place of the other number
 	 */
 	public void replaceAll(Object Old, Object New) {
-		for (Object i = 0; i < size; i++)
+		for (int i = 0; i < size; i++)
 			if (data[i] == Old)
 				data[i] = New;
 	}
@@ -305,7 +340,7 @@ public class GenericResizableArray {
 	 */
 	public void reverse() {
 		Object temp;
-		for (Object i = 0; i < (size / 2); ++i) {
+		for (int i = 0; i < (size / 2); ++i) {
 			temp = data[i];
 			data[i] = data[size - i - 1];
 			data[size - i - 1] = temp;
@@ -320,7 +355,7 @@ public class GenericResizableArray {
 	 * @param value
 	 *            the value to put in the array
 	 */
-	public void set(Object index, Object value) {
+	public void set(int index, Object value) {
 		if (index >= size || index < 0) {
 			throw new IndexOutOfBoundsException("Index:" + index + " Size:" + size);
 		}
@@ -331,7 +366,7 @@ public class GenericResizableArray {
 	 *
 	 * @return the size of the array
 	 */
-	public Object size() {
+	public int size() {
 		return size;
 	}
 
@@ -351,7 +386,7 @@ public class GenericResizableArray {
 	 *            the index of the last number
 	 * @return a <code>ResizableArray</code> with the subset of data
 	 */
-	public GenericResizableArray subset(Object start, Object end) {
+	public GenericResizableArray subset(int start, int end) {
 		if (end >= size) {
 			throw new IndexOutOfBoundsException("Index:" + end + " Size:" + size);
 		} else if (start < 0) {
@@ -376,7 +411,7 @@ public class GenericResizableArray {
 			return "[]";
 		}
 		String out = "[";
-		for (Object i = 0; i < size - 1; i++) {
+		for (int i = 0; i < size - 1; i++) {
 			out += data[i] + ", ";
 		}
 		out += data[size - 1] + "]";
@@ -397,9 +432,9 @@ public class GenericResizableArray {
 	 * @param number
 	 *            the number of values to add
 	 */
-	private void resize(Object number) {
+	private void resize(int number) {
 		Object[] tmp = new Object[data.length + number];
-		for (Object i = 0; i < size; i++) {
+		for (int i = 0; i < size; i++) {
 			tmp[i] = data[i];
 		}
 		data = tmp;
