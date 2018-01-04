@@ -48,13 +48,14 @@ public class IrregularPolygon extends Shape2D {
 			return 0;
 		}
 		double a = 0;
+		int n = points.size();
 		for (int i = 0; i < points.size() - 1; i++) {
 			a += points.get(i).getX() * points.get(i + 1).getY();
-		}
-		for (int i = 0; i < points.size() - 1; i++) {
 			a -= points.get(i).getY() * points.get(i + 1).getX();
 		}
-		return Math.abs(a);
+		a += points.get(n - 1).getX() * points.get(0).getY();
+		a -= points.get(n - 1).getY() * points.get(0).getX();
+		return Math.abs(a / 2);
 	}
 
 	public double getPerimeter() {
