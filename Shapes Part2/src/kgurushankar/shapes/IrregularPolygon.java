@@ -1,3 +1,11 @@
+/*
+ * + I like that you have 3 constructors and you can use color in them, the code is very organized and clear to understand 
+ * -
+ * 
+ * 
+ * 
+ */
+
 package kgurushankar.shapes;
 
 import java.awt.Color;
@@ -68,6 +76,27 @@ public class IrregularPolygon extends Shape2D {
 		}
 		d += points.get(0).distance(points.get(points.size() - 1));
 		return d;
+	}
+
+	public boolean isPolygon() {
+		Line[] l = new Line[points.size()];
+		for (int i = 0; i < points.size() - 1; i++) {
+			l[i] = new Line((float) points.get(i).getX(), (float) points.get(i).getY(),
+					(float) points.get(i + 1).getX(), (float) points.get(i + 1).getY());
+		}
+		l[l.length - 1] = new Line((float) points.get(0).getX(), (float) points.get(0).getY(),
+				(float) points.get(points.size() - 1).getX(), (float) points.get(points.size() - 1).getY());
+
+		for (int i = 0; i < l.length - 1; i++) {
+			if (l[i].doesIntersect(l[i + 1])) {
+				return false;
+			}
+		}
+		if (l[0].doesIntersect(l[l.length - 1])) {
+			return false;
+		}
+		return true;
+
 	}
 
 	@Override

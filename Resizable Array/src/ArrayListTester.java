@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import kgurushankar.arrays.ResizableArray;
 
 /**
@@ -7,26 +9,26 @@ import kgurushankar.arrays.ResizableArray;
  *
  */
 
-public class ResizableArrayTester {
+public class ArrayListTester {
 
-	private ResizableArray tester;
+	private ArrayList<Integer> tester;
 	private long startMem = 0;
 	private long startTime = 0;
 
 	public static void main(String[] args) {
-		ResizableArrayTester worker = new ResizableArrayTester();
+		ArrayListTester worker = new ArrayListTester();
 
 		worker.setUp();
 
-		worker.tester = new ResizableArray();
+		worker.tester = new ArrayList<Integer>();
 
 		// Switch between these method calls to run different tests.
 		// Only run 1 test at a time (so that memory and timing data is as accurate as
 		// possible).
 
-//		worker.runFirstWaveFunctionalTest();
+		// worker.runFirstWaveFunctionalTest();
 
-//		worker.runFunctionalTest();
+		// worker.runFunctionalTest();
 		worker.runEfficiencyTest(100000);
 		worker.runDown();
 
@@ -68,13 +70,13 @@ public class ResizableArrayTester {
 		tester.add(9);
 		tester.add(11);
 		tester.add(13);
-		tester.insert(0, 0);
-		tester.insert(2, 2);
-		tester.insert(4, 4);
-		tester.insert(6, 6);
-		tester.insert(8, 8);
-		tester.insert(10, 10);
-		tester.insert(12, 12);
+		tester.add(0, 0);
+		tester.add(2, 2);
+		tester.add(4, 4);
+		tester.add(6, 6);
+		tester.add(8, 8);
+		tester.add(10, 10);
+		tester.add(12, 12);
 		int val = tester.get(1);
 		tester.set(0, val);
 		tester.remove(4);
@@ -139,9 +141,9 @@ public class ResizableArrayTester {
 	// number of adds, inserts, and removes.
 
 	public void runEfficiencyTest(int num) {
-		runAddTest(num, true);
-		runInsertTest(num, true);
-		runRemoveTest(num, true);
+		runAddTest(num, false);
+		 runInsertTest(num, false);
+		 runRemoveTest(num, false);
 	}
 
 	public void runAddTest(int num, boolean random) {
@@ -161,10 +163,10 @@ public class ResizableArrayTester {
 
 		if (random) {
 			for (int i = 0; i < num; i++)
-				tester.insert((int) (Math.random() * (size + i)), (int) (Math.random() * 1000));
+				tester.add((int) (Math.random() * (size + i)), (int) (Math.random() * 1000));
 		} else {
 			for (int i = num - 1; i >= 0; i--)
-				tester.insert(0, i);
+				tester.add(tester.size(), i);
 		}
 
 	}
@@ -177,7 +179,7 @@ public class ResizableArrayTester {
 				tester.remove((int) (Math.random() * (size - i)));
 		} else {
 			for (int i = 0; i < num; i++)
-				tester.remove(0);
+				tester.remove(tester.size()-1);
 		}
 
 	}
