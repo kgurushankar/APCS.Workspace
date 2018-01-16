@@ -164,9 +164,14 @@ public class Life {
 		double X = p.getX() - x;
 		double Y = p.getY() - y;
 		int c = (int) (grid.length * X / width);
-		int r = (int) (grid[c].length * Y / height);
+		int r;
+		if (c < 0 || c >= grid.length)
+			return new Point(-1, -1);
+		else
+			r = (int) (grid[c].length * Y / height);
+		if (r < 0 || r >= grid[c].length)
+			return new Point(-1, -1);
 		return new Point(c, r);
-
 	}
 
 	/**
@@ -179,7 +184,8 @@ public class Life {
 	 *            The y coordinate of the cell in the grid.
 	 */
 	public void toggleCell(int i, int j) {
-		grid[i][j] = !grid[i][j];
+		if (i >= 0 && j >= 0 && i < grid.length && j < grid[i].length)
+			grid[i][j] = !grid[i][j];
 	}
 
 	private boolean processCell(int i, int j) {

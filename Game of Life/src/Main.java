@@ -9,7 +9,7 @@ import processing.core.PApplet;
 public class Main {
 
 	public static void main(String[] args) {
-		gui();
+		guiShelby();
 	}
 
 	public static void cli() {
@@ -23,8 +23,8 @@ public class Main {
 		System.out.println(grid.countAllCells());
 	}
 
-	public static void gui() {
-		DrawingSurface drawing = new DrawingSurface();
+	public static void guiMe() {
+		DrawingSurface2 drawing = new DrawingSurface2();
 		PApplet.runSketch(new String[] { "" }, drawing);
 		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
 		PSurfaceAWT.SmoothCanvas canvas = (PSurfaceAWT.SmoothCanvas) surf.getNative();
@@ -38,4 +38,19 @@ public class Main {
 		window.setVisible(true);
 	}
 
+	public static void guiShelby() {
+		DrawingSurface drawing = new DrawingSurface();
+		PApplet.runSketch(new String[] { "" }, drawing);
+		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
+		PSurfaceAWT.SmoothCanvas canvas = (PSurfaceAWT.SmoothCanvas) surf.getNative();
+		JFrame window = (JFrame) canvas.getFrame();
+
+		window.setSize(500, 300);
+		window.setMinimumSize(new Dimension(100, 100));
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		window.setResizable(true);
+
+		window.setVisible(true);
+		canvas.requestFocus();
+	}
 }

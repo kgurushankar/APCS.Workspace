@@ -4,49 +4,94 @@ import java.awt.event.KeyEvent;
 import processing.core.PApplet;
 
 public class DrawingSurface extends PApplet {
-	Life l;
-	private boolean pause;
 
-	public void setup() {
-		l = new Life("life100.txt");
+	private Life board;
+	private int runCount;
+	private int speed;
+	private Point prevToggle;
+
+	private final int MAX_SPEED = 480, MIN_SPEED = 15;
+
+	public DrawingSurface() {
+		board = new Life("life tester.txt");
+		runCount = -1;
+		speed = 120;
+		prevToggle = null;
 	}
 
+	// The statements in the setup() function
+	// execute once when the program begins
+	public void setup() {
+		// size(0,0,PApplet.P3D);
+	}
+
+	// The statements in draw() are executed until the
+	// program is stopped. Each statement is executed in
+	// sequence and after the last line is read, the first
+	// line is executed again.
 	public void draw() {
-		l.draw(this, 0, 0, width, height);
-		if (pause) {
-			this.fill(255, 0, 0);
-			this.textSize(32);
-			this.text("PAUSED", 10, 30);
-		} else {
-			if (frameCount % 60 == 0) {
-				l.step();
+		background(255); // Clear the screen with a white background
+		fill(0);
+		textAlign(LEFT);
+		textSize(12);
+
+		text("Enter: Run 1 step\nSpace: Start/Stop\nUp arrow: Increase speed\nDown arrow: Decrease speed\nc: Clear grid\n\nSpeed: "
+				+ (60.0 / speed) + " per sec", height + 20, 30);
+
+		if (runCount == 0) {
+			board.step();
+			runCount = speed;
+		} else if (runCount > 0) {
+			runCount--;
+		}
+
+		if (board != null) {
+			board.draw(this, 0, 0, height, height);
+		}
+
+	}
+
+	public void mousePressed() {
+		if (mouseButton == LEFT) {
+			Point click = new Point(mouseX, mouseY);
+			float dimension = height;
+			Point cellCoord = board.clickToIndex(click, 0, 0, dimension, dimension);
+			if (cellCoord != null) {
+				board.toggleCell(cellCoord.x, cellCoord.y);
+				prevToggle = cellCoord;
 			}
 		}
 	}
 
-	public void mousePressed() {
-		Point p = l.clickToIndex(new Point(mouseX, mouseY), 0, 0, width, height);
-		if (last == null || (p.x != last.x || p.y != last.y)) {
-			l.toggleCell(p.x, p.y);
-			last = p;
-		}
-	}
-
-	private Point last;
-
 	public void mouseDragged() {
-		mousePressed();
-	}
-
-	public void mouseReleased() {
-		last = null;
+		if (mouseButton == LEFT) {
+			Point click = new Point(mouseX, mouseY);
+			float dimension = height;
+			Point cellCoord = board.clickToIndex(click, 0, 0, dimension, dimension);
+			if (cellCoord != null && !cellCoord.equals(prevToggle)) {
+				board.toggleCell(cellCoord.x, cellCoord.y);
+				prevToggle = cellCoord;
+			}
+		}
 	}
 
 	public void keyPressed() {
-		if (keyCode == KeyEvent.VK_P) {
-			pause = !pause;
-		} else if (keyCode == KeyEvent.VK_SPACE) {
-			l = new Life();
+		if (keyCode == KeyEvent.VK_SPACE) {
+			if (runCount >= 0)
+				runCount = -1;
+			else
+				runCount = 0;
+		} else if (keyCode == KeyEvent.VK_DOWN) {
+			speed = Math.min(MAX_SPEED, speed * 2);
+		} else if (keyCode == KeyEvent.VK_UP) {
+			speed = Math.max(MIN_SPEED, speed / 2);
+			runCount = Math.min(runCount, speed);
+		} else if (keyCode == KeyEvent.VK_ENTER) {
+			board.step();
+		} else if (keyCode == KeyEvent.VK_C) {
+			board = new Life();
 		}
+
 	}
+
 }
