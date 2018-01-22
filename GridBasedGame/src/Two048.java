@@ -192,7 +192,7 @@ public class Two048 {
 
 	}
 
-	public boolean fill() {
+	private boolean fill() {
 		for (int i = 0; i < grid.length; i++) {
 			for (int j = 0; j < grid[i].length; j++) {
 				if (grid[i][j] == 0) {
@@ -203,7 +203,7 @@ public class Two048 {
 		return true;
 	}
 
-	public boolean lose() {
+	private boolean movePossible() {
 		Two048 u = this.clone();
 		Two048 d = this.clone();
 		Two048 l = this.clone();
@@ -212,13 +212,14 @@ public class Two048 {
 		d.step(2);
 		r.step(1);
 		l.step(3);
-		if (!fill()) {
+		if (u.equals(this) && d.equals(this) && l.equals(this) && r.equals(this)) {
 			return false;
 		}
-		if (u.equals(this) && d.equals(this) && l.equals(this) && r.equals(this)) {
-			return true;
-		}
-		return false;
+		return true;
+	}
+
+	public boolean lose() {
+		return fill() && !movePossible();
 	}
 
 	public boolean win() {
