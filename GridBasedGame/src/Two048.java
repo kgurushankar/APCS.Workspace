@@ -1,8 +1,3 @@
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Scanner;
-
 import processing.core.PApplet;
 
 /**
@@ -20,6 +15,7 @@ public class Two048 {
 	// Constructs an empty grid
 	public Two048() {
 		grid = new int[4][4]; // [row][column]
+		this.spawnNew();
 	}
 
 	// Runs a single turn of the Game Of 2048
@@ -46,6 +42,7 @@ public class Two048 {
 	 *            </table>
 	 */
 	public void step(int dir) {
+		Two048 old = this.clone();
 		if (dir == 0) { // Up
 			for (int i = 0; i < 4; i++) {
 				for (int j = 0; j < 4; j++) {
@@ -53,9 +50,11 @@ public class Two048 {
 						grid[j][i]++;
 						grid[j + 1][i] = 0;
 					}
-					if (j < 3 && grid[j][i] == 0) {
-						grid[j][i] = grid[j + 1][i];
-						grid[j + 1][i] = 0;
+					for (int k = 0; k < 4; k++) {
+						if (k < 3 && grid[k][i] == 0) {
+							grid[k][i] = grid[k + 1][i];
+							grid[k + 1][i] = 0;
+						}
 					}
 				}
 			}
@@ -66,9 +65,11 @@ public class Two048 {
 						grid[i][j]++;
 						grid[i][j - 1] = 0;
 					}
-					if (j > 0 && grid[i][j] == 0) {
-						grid[i][j] = grid[i][j - 1];
-						grid[i][j - 1] = 0;
+					for (int k = 3; k >= 0; k--) {
+						if (k > 0 && grid[i][k] == 0) {
+							grid[i][k] = grid[i][k - 1];
+							grid[i][k - 1] = 0;
+						}
 					}
 				}
 			}
@@ -79,9 +80,11 @@ public class Two048 {
 						grid[j][i]++;
 						grid[j - 1][i] = 0;
 					}
-					if (j > 0 && grid[j][i] == 0) {
-						grid[j][i] = grid[j - 1][i];
-						grid[j - 1][i] = 0;
+					for (int k = 3; k >= 0; k--) {
+						if (k > 0 && grid[k][i] == 0) {
+							grid[k][i] = grid[k - 1][i];
+							grid[k - 1][i] = 0;
+						}
 					}
 				}
 			}
@@ -92,14 +95,18 @@ public class Two048 {
 						grid[i][j]++;
 						grid[i][j + 1] = 0;
 					}
-					if (j < 3 && grid[i][j] == 0) {
-						grid[i][j] = grid[i][j + 1];
-						grid[i][j + 1] = 0;
+					for (int k = 0; k < 4; k++) {
+						if (k < 3 && grid[i][k] == 0) {
+							grid[i][k] = grid[i][k + 1];
+							grid[i][k + 1] = 0;
+						}
 					}
 				}
 			}
 		}
-		spawnNew();
+		if (!this.equals(old)) {
+			spawnNew();
+		}
 	}
 
 	// Formats this Life grid as a String to be printed (one call to this method
@@ -113,39 +120,6 @@ public class Two048 {
 			s.append('\n');
 		}
 		return s.toString();
-	}
-
-	// Reads in array data from a simple text file containing asterisks (*)
-	public void readData(String filename, boolean[][] gameData) {
-		File dataFile = new File(filename);
-
-		if (dataFile.exists()) {
-			int count = 0;
-
-			FileReader reader = null;
-			Scanner in = null;
-			try {
-				reader = new FileReader(dataFile);
-				in = new Scanner(reader);
-
-				while (in.hasNext()) {
-					String line = in.nextLine();
-					for (int i = 0; i < line.length(); i++)
-						if (i < gameData.length && count < gameData[i].length && line.charAt(i) == '*')
-							gameData[i][count] = true;
-
-					count++;
-				}
-			} catch (IOException ex) {
-				throw new IllegalArgumentException("Data file " + filename + " cannot be read.");
-			} finally {
-				if (in != null)
-					in.close();
-			}
-
-		} else {
-			throw new IllegalArgumentException("Data file " + filename + " does not exist.");
-		}
 	}
 
 	/**
@@ -195,27 +169,56 @@ public class Two048 {
 		return true;
 	}
 
-	private void spawnNew() {
-		for (int i = 0; i < 100; i++) {
+	public Two048 clone() {
+		Two048 n = new Two048();
+		for (int i = 0; i < grid.length; i++) {
+			for (int j = 0; j < grid[i].length; j++) {
+				n.grid[i][j] = this.grid[i][j];
+			}
+		}
+		return n;
+	}
+
+	public void spawnNew() {
+		int set = (Math.random() < 0.9) ? 1 : 2;
+		while (true && !fill()) {
 			int x = (int) (Math.random() * 4);
 			int y = (int) (Math.random() * 4);
 			if (grid[x][y] == 0) {
-				grid[x][y] = 1;
+				grid[x][y] = set;
 				return;
 			}
 		}
 
 	}
 
-	public boolean lose() {
+	public boolean fill() {
 		for (int i = 0; i < grid.length; i++) {
 			for (int j = 0; j < grid[i].length; j++) {
-				if (grid[i][j] != 0) {
+				if (grid[i][j] == 0) {
 					return false;
 				}
 			}
 		}
 		return true;
+	}
+
+	public boolean lose() {
+		Two048 u = this.clone();
+		Two048 d = this.clone();
+		Two048 l = this.clone();
+		Two048 r = this.clone();
+		u.step(0);
+		d.step(2);
+		r.step(1);
+		l.step(3);
+		if (!fill()) {
+			return false;
+		}
+		if (u.equals(this) && d.equals(this) && l.equals(this) && r.equals(this)) {
+			return true;
+		}
+		return false;
 	}
 
 	public boolean win() {
@@ -227,5 +230,9 @@ public class Two048 {
 			}
 		}
 		return false;
+	}
+
+	private void makeWin() {
+		grid = new int[][] { { 1, 1, 2, 3 }, { 7, 6, 5, 4 }, { 8, 9, 10, 11 }, { 15, 14, 13, 12 } };
 	}
 }
