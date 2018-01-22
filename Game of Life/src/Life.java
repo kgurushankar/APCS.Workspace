@@ -124,8 +124,9 @@ public class Life {
 		float px = x;
 		float py = y;
 		float ix = width / grid.length;
-		float iy = height / grid[0].length;
+		float iy;
 		for (int i = 0; i < grid.length; i++) {
+			iy = height / grid[i].length;
 			for (int j = 0; j < grid[i].length; j++) {
 				if (grid[j][i]) {
 					marker.fill(Color.WHITE.getRGB());
@@ -249,7 +250,6 @@ public class Life {
 		for (int i = 0; i < grid.length; i++) {
 			for (int j = 0; j < grid[i].length; j++) {
 				if (other.grid[i][j] != this.grid[i][j]) {
-					System.out.println(i + "  " + j);
 					return false;
 				}
 			}
