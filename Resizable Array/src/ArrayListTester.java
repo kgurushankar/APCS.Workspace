@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 import kgurushankar.arrays.ResizableArray;
 
@@ -90,7 +92,7 @@ public class ArrayListTester {
 		System.out.println(tester); // [1, 1, 2, 3, 5, 8, 13]
 
 		// EQUALS TEST
-		ResizableArray other = new ResizableArray();
+		ArrayList<Integer> other = new ArrayList<Integer>();
 		other.add(1);
 		other.add(1);
 		other.add(2);
@@ -106,7 +108,7 @@ public class ArrayListTester {
 
 		// BAD METHOD CALLS TEST
 		try {
-			other.insert(10, 5);
+			other.add(10, 5);
 			System.out.println("IF YOU SEE THIS, THERE IS A PROBLEM.");
 		} catch (Exception e) {
 			System.out.println("Caught exception from a bad insert (this is a good thing). Message: " + e.getMessage());
@@ -120,7 +122,7 @@ public class ArrayListTester {
 		}
 
 		// SORT TEST
-		ResizableArray otherSort = new ResizableArray();
+		ArrayList<Integer> otherSort = new ArrayList<Integer>();
 
 		otherSort.add(13);
 		otherSort.add(8);
@@ -130,7 +132,7 @@ public class ArrayListTester {
 		otherSort.add(1);
 		otherSort.add(1);
 
-		otherSort.sort();
+		Collections.sort(otherSort);
 		System.out.println(otherSort); // [1, 1, 2, 3, 5, 8, 13]
 		System.out.println(tester.equals(otherSort)); // true
 
@@ -142,8 +144,8 @@ public class ArrayListTester {
 
 	public void runEfficiencyTest(int num) {
 		runAddTest(num, false);
-		 runInsertTest(num, false);
-		 runRemoveTest(num, false);
+		runInsertTest(num, false);
+		runRemoveTest(num, false);
 	}
 
 	public void runAddTest(int num, boolean random) {
@@ -179,7 +181,7 @@ public class ArrayListTester {
 				tester.remove((int) (Math.random() * (size - i)));
 		} else {
 			for (int i = 0; i < num; i++)
-				tester.remove(tester.size()-1);
+				tester.remove(tester.size() - 1);
 		}
 
 	}
