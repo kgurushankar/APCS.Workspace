@@ -71,8 +71,8 @@ public class RecursiveStringTools {
 
 	private static void run(String start, String end, int i) {
 		String cur = end.substring(i, i + 1);
-		String before = end.substring(0, i); // letters before cur
-		String after = end.substring(i + 1); // letters after cur
+		String before = end.substring(0, i); 	
+		String after = end.substring(i + 1); 
 		anagram(start + cur, before + after);
 		if (i + 1 < end.length()) {
 			run(start, end, i + 1);
