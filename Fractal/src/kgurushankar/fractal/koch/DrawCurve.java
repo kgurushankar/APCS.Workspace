@@ -1,20 +1,20 @@
-package kgurushankar.kochcurve;
+package kgurushankar.fractal.koch;
 
-import java.awt.Point;
 import java.awt.event.KeyEvent;
 
 import processing.core.PApplet;
 import processing.event.MouseEvent;
 
-public class DrawingSurface extends PApplet {
+public class DrawCurve extends PApplet {
 
-	private KochCurve curve;
+	private Curve curve;
 	private int level, length;
 
-	public DrawingSurface() {
+	public DrawCurve() {
 		level = 2;
 		length = 1000;
-		curve = new KochCurve(level, length);
+		curve = new Curve(level, 100, 500, length + 100, 500);
+
 	}
 
 	// The statements in the setup() function
@@ -42,16 +42,16 @@ public class DrawingSurface extends PApplet {
 	public void mouseWheel(MouseEvent event) {
 		int num = event.getCount();
 		length -= num * 10;
-		curve = new KochCurve(level, length);
+		curve = new Curve(level, 100, 500, length + 100, 500);
 	}
 
 	public void keyPressed() {
 		if (keyCode == KeyEvent.VK_UP) {
 			level++;
-			curve = new KochCurve(level, length);
+			curve = new Curve(level, 100, 500, length + 100, 500);
 		} else if (keyCode == KeyEvent.VK_DOWN) {
 			level--;
-			curve = new KochCurve(level, length);
+			curve = new Curve(level, 100, 500, length + 100, 500);
 		}
 	}
 

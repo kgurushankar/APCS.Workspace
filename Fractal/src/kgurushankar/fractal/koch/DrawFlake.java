@@ -1,4 +1,4 @@
-package kgurushankar.kochsnowflake;
+package kgurushankar.fractal.koch;
 
 import java.awt.Point;
 import java.awt.event.KeyEvent;
@@ -6,15 +6,15 @@ import java.awt.event.KeyEvent;
 import processing.core.PApplet;
 import processing.event.MouseEvent;
 
-public class DrawingSurface extends PApplet {
+public class DrawFlake extends PApplet {
 
-	private KochFlake curve;
+	private Flake curve;
 	private int level, length;
 
-	public DrawingSurface() {
+	public DrawFlake() {
 		level = 5;
 		length = 1000;
-		curve = new KochFlake();
+		curve = new Flake();
 	}
 
 	// The statements in the setup() function
@@ -42,16 +42,16 @@ public class DrawingSurface extends PApplet {
 	public void mouseWheel(MouseEvent event) {
 		int num = event.getCount();
 		length -= num * 10;
-		curve = new KochFlake(new Point(500, 100), level, 3, length);
+		curve = new Flake(new Point(500, 100), level, 3, length);
 	}
 
 	public void keyPressed() {
 		if (keyCode == KeyEvent.VK_UP) {
 			level++;
-			curve = new KochFlake(new Point(500, 100), level, 3, length);
+			curve = new Flake(new Point(500, 100), level, 3, length);
 		} else if (keyCode == KeyEvent.VK_DOWN) {
 			level--;
-			curve = new KochFlake(new Point(500, 100), level, 3, length);
+			curve = new Flake(new Point(500, 100), level, 3, length);
 		}
 	}
 
