@@ -18,15 +18,12 @@ public class Curve extends kgurushankar.fractal.Curve {
 	// TO DO
 	Line[] p;
 
-	public Curve(int level, Point start, Point end) {
-		ArrayList<Line> AL = new ArrayList<Line>();
-		setupCurve(AL, level, start, end);
-		p = new Line[AL.size()];
-		AL.toArray(p);
+	public Curve(int level, int x, int y, int x2, int y2) {
+		super(level, x, y, x2, y2);
 	}
 
-	public Curve(int level, int x, int y, int x2, int y2) {
-		this(level, new Point(x, y), new Point(x2, y2));
+	public Curve(int level, Point start, Point end) {
+		super(level, start, end);
 	}
 
 	public void draw(PApplet marker) {
