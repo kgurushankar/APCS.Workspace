@@ -30,7 +30,8 @@ import java.awt.Color;
  */
 public class DancingBugRunner {
 	public static void main(String[] args) {
-		int[] a = new int[] { 9, 20, 12, 16, 10, 18, 14, 12, 16, 10, 9, 17, 5, 2, 4, 16, 20, 20, 15, 8 };
+		// int[] a = new int[] { 9, 20, 12, 16, 10, 18, 14, 12, 16, 10, 9, 17, 5, 2, 4,
+		// 16, 20, 20, 15, 8 };
 		int[] s = new int[] { 1, 2, 2, 3, 3, 2, 2, 1 };
 		ActorWorld world = new ActorWorld();
 		DancingBug alice = new DancingBug(s);

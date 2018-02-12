@@ -5,7 +5,7 @@ public class Solver {
 	public static void main(String args[]) {
 		Game g = new Game(10);
 		Solver s = new Solver(g);
-
+		s.hanoi(10, 1, 3);
 	}
 
 	private Game g;

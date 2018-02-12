@@ -1,8 +1,6 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
-import kgurushankar.arrays.ResizableArray;
 
 /**
  * ResizableArrayTester.java

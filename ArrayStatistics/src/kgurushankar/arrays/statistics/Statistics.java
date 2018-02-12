@@ -1,6 +1,5 @@
 package kgurushankar.arrays.statistics;
 
-import java.util.Arrays;
 
 public class Statistics {
 	private int[] arr;

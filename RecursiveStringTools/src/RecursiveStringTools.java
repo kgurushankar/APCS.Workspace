@@ -131,6 +131,7 @@ public class RecursiveStringTools {
 		Scanner kboard = new Scanner(System.in);
 		System.out.println("Please enter a string:");
 		String s = kboard.nextLine();
+		kboard.close();
 		String out = RecursiveStringTools.piglatinate(s);
 		System.out.print("\n\nThe result is --> " + out + "\n\n");
 	}

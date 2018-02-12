@@ -1,4 +1,4 @@
-package kgurushankar.kochcurve;
+package kgurushankar.fractal;
 
 import java.awt.Point;
 

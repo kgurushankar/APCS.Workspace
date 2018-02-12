@@ -233,6 +233,7 @@ public class Two048 {
 		return false;
 	}
 
+	@SuppressWarnings("unused")
 	private void makeWin() {
 		grid = new int[][] { { 1, 1, 2, 3 }, { 7, 6, 5, 4 }, { 8, 9, 10, 11 }, { 15, 14, 13, 12 } };
 	}
