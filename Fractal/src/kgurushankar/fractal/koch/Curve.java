@@ -14,10 +14,6 @@ import processing.core.PApplet;
  * @version
  */
 public class Curve extends kgurushankar.fractal.Curve {
-
-	// TO DO
-	Line[] p;
-
 	public Curve(int level, int x, int y, int x2, int y2) {
 		super(level, x, y, x2, y2);
 	}
