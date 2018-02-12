@@ -116,15 +116,9 @@ public class RecursiveStringTools {
 		}
 	}
 
-	// Could be done with one long condition, but I seriously don't want to.
 	private static boolean isVowel(char c) {
-		final char[] vowels = { 'a', 'A', 'e', 'E', 'i', 'I', 'o', 'O', 'u', 'U' };
-		for (char v : vowels) {
-			if (c == v) {
-				return true;
-			}
-		}
-		return false;
+		c = Character.toLowerCase(c);
+		return (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u');
 	}
 
 	public static void main(String[] args) {
