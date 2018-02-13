@@ -22,17 +22,10 @@ public class Curve extends kgurushankar.fractal.Curve {
 		super(level, start, end);
 	}
 
-	public void draw(PApplet marker) {
-		for (Line l : p) {
-			l.draw(marker);
-		}
-	}
-
 	protected void setupCurve(ArrayList<Line> AL, int level, Point one, Point two) {
-		if (level == 1) {
+		if (level <= 1) {
 			AL.add(new Line(one, two));
-		}
-		if (level >= 0) {
+		} else {
 			int dx = (two.x - one.x) / 3;
 			int dy = (two.y - one.y) / 3;
 			Point a = new Point(one.x + dx, one.y + dy);

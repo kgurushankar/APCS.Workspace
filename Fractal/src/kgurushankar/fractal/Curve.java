@@ -7,7 +7,7 @@ import processing.core.PApplet;
 
 public abstract class Curve {
 
-	protected Line[] p;
+	private Line[] p;
 
 	public Curve(int level, Point start, Point end) {
 		ArrayList<Line> AL = new ArrayList<Line>();
