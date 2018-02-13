@@ -4,7 +4,6 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import kgurushankar.fractal.Line;
-import processing.core.PApplet;
 
 /**
  * @(#)KochCurve.java
@@ -30,7 +29,7 @@ public class Curve extends kgurushankar.fractal.Curve {
 			int dy = (two.y - one.y) / 3;
 			Point a = new Point(one.x + dx, one.y + dy);
 			Point b = new Point(two.x - dx, two.y - dy);
-			double sin120 = -0.866025403784438646763723170752936183471402626905190;
+			final double sin120 = -0.866025403784438646763723170752936183471402626905190;
 			Point tip = new Point(a.x + (int) (dx * 0.5 + dy * sin120), a.y + (int) (dy * 0.5 - dx * sin120));
 			setupCurve(AL, level - 1, one, a);
 			setupCurve(AL, level - 1, a, tip);

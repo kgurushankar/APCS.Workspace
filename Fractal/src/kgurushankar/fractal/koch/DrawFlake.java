@@ -14,7 +14,7 @@ public class DrawFlake extends PApplet {
 	public DrawFlake() {
 		level = 5;
 		length = 1000;
-		curve = new Flake();
+		curve = new Flake(new Point(500, 100), level, length);
 	}
 
 	// The statements in the setup() function
@@ -42,16 +42,16 @@ public class DrawFlake extends PApplet {
 	public void mouseWheel(MouseEvent event) {
 		int num = event.getCount();
 		length -= num * 10;
-		curve = new Flake(new Point(500, 100), level, 3, length);
+		curve = new Flake(new Point(500, 100), level, length);
 	}
 
 	public void keyPressed() {
 		if (keyCode == KeyEvent.VK_UP) {
 			level++;
-			curve = new Flake(new Point(500, 100), level, 3, length);
+			curve = new Flake(new Point(500, 100), level, length);
 		} else if (keyCode == KeyEvent.VK_DOWN) {
 			level--;
-			curve = new Flake(new Point(500, 100), level, 3, length);
+			curve = new Flake(new Point(500, 100), level, length);
 		}
 	}
 

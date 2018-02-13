@@ -7,20 +7,14 @@ import processing.core.PApplet;
 public class Flake {
 	Curve[] kc;
 
-	/** This is majorly messed up rn */
-	Flake(Point start, int level, int number, int length) {
-		double angle = Math.PI / number;
-		Point[] p = new Point[number];
-		p[0] = start;
-		for (int i = 1; i < number; i++) {
-			p[i] = new Point((int) (p[i - 1].x - length * Math.sin(angle)),
-					(int) (p[i - 1].y - length * Math.cos(angle)));
-		}
-		kc = new Curve[number];
-		for (int i = 0; i < number - 1; i++) {
-			kc[i] = new Curve(level, p[i], p[i + 1]);
-		}
-		kc[number - 1] = new Curve(level, p[0], p[number - 1]);
+	Flake(Point start, int level, int length) {
+		kc = new Curve[3];
+		double base = length / 2.;
+		Point right = new Point((int) (start.x + base), (int) (start.y + base * Math.sqrt(3)));
+		Point left = new Point((int) (start.x - base), (int) (start.y + base * Math.sqrt(3)));
+		kc[0] = new Curve(level, start, left);
+		kc[1] = new Curve(level, left, right);
+		kc[2] = new Curve(level, right, start);
 	}
 
 	public void draw(PApplet applet) {

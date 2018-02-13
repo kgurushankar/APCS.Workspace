@@ -17,11 +17,12 @@ public class Curve extends kgurushankar.fractal.Curve {
 	@Override
 	protected void setupCurve(ArrayList<Line> AL, int level, Point one, Point two) {
 		if (level > 0) {
-			double angle = Math.acos((two.x - one.x) / (one.distance(two)));
+			double angle = -Math.acos((two.x - one.x) / (one.distance(two)));
 			AL.add(new Line(one, two));
-			double t = Math.toRadians(20);
-			double pangle = angle + t;
-			double mangle = angle - t;
+			double l = -Math.toRadians(20);
+			double r = Math.toRadians(20);
+			double pangle = angle + r;
+			double mangle = angle + l;
 			int length = (int) ((level - 1) * one.distance(two) / level);
 			Point p = new Point((int) (two.x + Math.cos(pangle) * length), (int) (two.y + Math.sin(pangle) * length));
 			Point m = new Point((int) (two.x + Math.cos(mangle) * length), (int) (two.y + Math.sin(mangle) * length));
