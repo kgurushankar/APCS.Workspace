@@ -17,17 +17,18 @@ public class Curve extends kgurushankar.fractal.Curve {
 
 	@Override
 	protected void setupCurve(ArrayList<Line> AL, int level, Point one, Point two) {
+		Point midbase = Utils.midpt(one, two);
+		Point tip = new Point(midbase.x, (int) (-Math.sqrt(3) * midbase.distance(one) + one.y));
 		if (level > 1) {
-			Point midbase = Utils.midpt(one, two);
-			Point tip = new Point(midbase.x, (int) (-Math.sqrt(3) * midbase.distance(one) + one.y));
 			Point midleft = Utils.midpt(one, tip);
 			Point midright = Utils.midpt(tip, two);
-			AL.add(new Line(one, two));
-			AL.add(new Line(one, tip));
-			AL.add(new Line(tip, two));
 			setupCurve(AL, level - 1, one, midbase);
 			setupCurve(AL, level - 1, midbase, two);
 			setupCurve(AL, level - 1, midleft, midright);
+		} else {
+			AL.add(new Line(one, two));
+			AL.add(new Line(one, tip));
+			AL.add(new Line(tip, two));
 		}
 	}
 
