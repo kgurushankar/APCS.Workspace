@@ -10,7 +10,7 @@ public abstract class DrawCurve extends PApplet {
 	private Curve curve;
 	private int level, length;
 
-	public abstract Curve setupCurve(int level, int length);
+	protected abstract Curve setupCurve(int level, int length);
 
 	public DrawCurve() {
 		level = 10;
@@ -19,8 +19,7 @@ public abstract class DrawCurve extends PApplet {
 
 	}
 
-	private Curve setupCurve() {
-		// TODO Auto-generated method stub
+	protected Curve setupCurve() {
 		return setupCurve(level, length);
 	}
 
@@ -39,8 +38,6 @@ public abstract class DrawCurve extends PApplet {
 
 		textSize(12);
 		fill(0);
-		// text("Use the mouse wheel to change length, use UP/DOWN keys to change
-		// level.",0,15);
 
 		stroke(0);
 		curve.draw(this);
