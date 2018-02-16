@@ -13,7 +13,7 @@ public abstract class DrawCurve extends PApplet {
 	protected abstract Curve setupCurve(int level, int length);
 
 	public DrawCurve() {
-		level = 10;
+		level = 5;
 		length = 500;
 		curve = setupCurve();
 

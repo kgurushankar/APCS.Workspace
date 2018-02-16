@@ -17,9 +17,7 @@ public class Curve extends kgurushankar.fractal.Curve {
 
 	@Override
 	protected void setupCurve(ArrayList<Line> AL, int level, Point one, Point two) {
-		if (level <= 1) {
-
-		} else {
+		if (level > 1) {
 			int dx = -(one.x - two.x) / 3;
 			int dy = -(one.y - two.y) / 3;
 			AL.add(new Line(one, two));
@@ -28,7 +26,7 @@ public class Curve extends kgurushankar.fractal.Curve {
 			setupCurve(AL, level - 1, new Point(one.x + 2 * dx, one.y + 2 * dy), two);
 			setupCurve(AL, level - 1, new Point(one.x, two.y), new Point(one.x + dx, one.y + 2 * dy));
 			setupCurve(AL, level - 1, new Point(one.x + 2 * dx, one.y + dy), new Point(two.x, one.y));
-
+			setupCurve(AL, level - 1, new Point(one.x + dx, one.y + dy), new Point(one.x + 2 * dx, one.y + 2 * dy));
 		}
 	}
 }
