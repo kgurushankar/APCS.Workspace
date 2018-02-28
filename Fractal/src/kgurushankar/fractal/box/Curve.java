@@ -4,7 +4,6 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import kgurushankar.fractal.Line;
-import kgurushankar.fractal.Utils;
 
 public class Curve extends kgurushankar.fractal.Curve {
 	public Curve(int level, int x, int y, int x2, int y2) {
