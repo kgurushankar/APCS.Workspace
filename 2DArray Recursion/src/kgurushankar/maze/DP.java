@@ -54,10 +54,7 @@ public class DP {
 		setup(entrance, 1);
 	}
 
-	// is diag legal?
-	// out of bounds check?
-	// leave a trail dont numerically backwork just yet
-	private void setup(int[] coords, int curr) {
+	private void setup2(int[] coords, int curr) {
 		if (coords[0] < 0 || coords[0] >= grid.length - 1) {// out of bounds
 			return;
 		} else if (coords[1] < 0 || coords[1] >= grid[coords[0]].length - 1) {// out of bounds
@@ -73,7 +70,78 @@ public class DP {
 			setup(new int[] { coords[0], coords[1] + 1 }, curr);// up
 			setup(new int[] { coords[0], coords[1] - 1 }, curr);// down
 		}
+	}
 
+	// Greedy variant of algorithm above
+	private void setup(int[] coords, int curr) {
+		if (coords[0] < 0 || coords[0] >= grid.length - 1) {// out of bounds
+			return;
+		} else if (coords[1] < 0 || coords[1] >= grid[coords[0]].length - 1) {// out of bounds
+			return;
+		} else if (grid[coords[0]][coords[1]] == -1) {// wall
+			return;
+		} else if (grid[coords[0]][coords[1]] == 0 || grid[coords[0]][coords[1]] > curr) {// on path OR already explored
+																							// but with longer path
+			grid[coords[0]][coords[1]] = curr;
+			curr++;
+
+			int[] order = new int[4];
+			int[][] newCoords = new int[4][2]; // Right,left,up,down
+			newCoords[0] = new int[] { coords[0] + 1, coords[1] };
+			newCoords[1] = new int[] { coords[0] - 1, coords[1] };
+			newCoords[2] = new int[] { coords[0], coords[1] + 1 };
+			newCoords[3] = new int[] { coords[0], coords[1] - 1 };
+			int[] target = nearestExit(coords);
+			int dx = target[0] - coords[0];
+			int dy = target[1] - coords[1];
+			if (Math.abs(dx) > Math.abs(dy)) {
+				if (dx > 0) { // move right
+					order[0] = 0;
+					order[1] = 1;
+				} else { // move left
+					order[0] = 1;
+					order[1] = 0;
+				}
+				if (dy < 0) {// move up
+					order[2] = 2;
+					order[3] = 3;
+				} else {// move down
+					order[2] = 3;
+					order[3] = 2;
+				}
+			} else {
+				if (dy < 0) {// move up
+					order[0] = 2;
+					order[1] = 3;
+				} else {// move down
+					order[0] = 3;
+					order[1] = 2;
+				}
+				if (dx > 0) { // move right
+					order[2] = 0;
+					order[3] = 1;
+				} else { // move left
+					order[2] = 1;
+					order[3] = 0;
+				}
+			}
+			for (int o : order) {
+				setup(newCoords[o], curr);// right
+			}
+		}
+	}
+
+	private int[] nearestExit(int[] coords) {
+		int curr = grid[exit[0][0]][exit[0][1]];
+		int index = 0;
+		for (int i = 1; i < exit.length; i++) {
+			int dist = grid[exit[i][0]][exit[i][1]];
+			if (dist != 0 && dist < curr) {
+				index = i;
+				curr = dist;
+			}
+		}
+		return exit[index];
 	}
 
 	public void readData(String filename, int[][] gameData) {
