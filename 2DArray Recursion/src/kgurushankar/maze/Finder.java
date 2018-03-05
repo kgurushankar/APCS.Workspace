@@ -7,27 +7,26 @@ import java.util.Scanner;
 
 import processing.core.PApplet;
 
-public class DP {
-
+public class Finder {
 	private int[][] grid;
 	private char[][] sol;
 	public int[][] exit;
 	public int[] entrance;
 
-	public DP() {
+	public Finder() {
 		this(20, 20);
 	}
 
-	public DP(int r, int w) {
+	public Finder(int r, int w) {
 		grid = new int[r][w];
 	}
 
 	// Constructs the grid defined in the file specified
-	public DP(String filename) {
+	public Finder(String filename) {
 		this(filename, 20, 20);
 	}
 
-	public DP(String filename, int r, int w) {
+	public Finder(String filename, int r, int w) {
 		grid = new int[r][w];
 		readData(filename, grid);
 		solve();
@@ -97,16 +96,16 @@ public class DP {
 			if (Math.abs(dx) > Math.abs(dy)) {
 				if (dx > 0) { // move right
 					order[0] = 0;
-					order[1] = 1;
+					order[2] = 1;
 				} else { // move left
 					order[0] = 1;
-					order[1] = 0;
+					order[2] = 0;
 				}
 				if (dy < 0) {// move up
-					order[2] = 2;
+					order[1] = 2;
 					order[3] = 3;
 				} else {// move down
-					order[2] = 3;
+					order[1] = 3;
 					order[3] = 2;
 				}
 			} else {
@@ -115,13 +114,13 @@ public class DP {
 					order[1] = 3;
 				} else {// move down
 					order[0] = 3;
-					order[1] = 2;
+					order[2] = 2;
 				}
 				if (dx > 0) { // move right
-					order[2] = 0;
+					order[1] = 0;
 					order[3] = 1;
 				} else { // move left
-					order[2] = 1;
+					order[1] = 1;
 					order[3] = 0;
 				}
 			}
@@ -192,7 +191,6 @@ public class DP {
 				if (in != null)
 					in.close();
 			}
-
 		} else {
 			throw new IllegalArgumentException("Data file " + filename + " does not exist.");
 		}
@@ -230,12 +228,12 @@ public class DP {
 	public void draw(PApplet marker, float x, float y, float width, float height) {
 		float px = x;
 		float py = y;
-		float ix = width / grid.length;
+		float ix = width / sol.length;
 		float iy;
-		for (int i = 0; i < grid.length; i++) {
-			iy = height / grid[i].length;
-			for (int j = 0; j < grid[i].length; j++) {
-				marker.text(grid[j][i], px, py);
+		for (int i = 0; i < sol.length; i++) {
+			iy = height / sol[i].length;
+			for (int j = 0; j < sol[i].length; j++) {
+				marker.text(sol[j][i], px, py);
 				px += ix;
 			}
 			py += iy;
@@ -280,5 +278,21 @@ public class DP {
 		} else {
 			return new int[] { -1 };
 		}
+	}
+
+	public void changeExits(int[][] exits) {
+		this.exit = exits;
+
+		// choose best exit
+		int curr = grid[exit[0][0]][exit[0][1]];
+		int index = 0;
+		for (int i = 1; i < exit.length; i++) {
+			int dist = grid[exit[i][0]][exit[i][1]];
+			if (dist != 0 && dist < curr) {
+				index = i;
+				curr = dist;
+			}
+		}
+		sol = getSolutionTo(exit[index]);
 	}
 }
