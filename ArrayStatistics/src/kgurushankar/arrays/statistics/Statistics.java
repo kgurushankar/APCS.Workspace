@@ -1,6 +1,5 @@
 package kgurushankar.arrays.statistics;
 
-
 public class Statistics {
 	private int[] arr;
 	private int length;

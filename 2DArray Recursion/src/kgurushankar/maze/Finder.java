@@ -53,23 +53,23 @@ public class Finder {
 		setup(entrance, 1);
 	}
 
-	private void setup2(int[] coords, int curr) {
-		if (coords[0] < 0 || coords[0] >= grid.length - 1) {// out of bounds
-			return;
-		} else if (coords[1] < 0 || coords[1] >= grid[coords[0]].length - 1) {// out of bounds
-			return;
-		} else if (grid[coords[0]][coords[1]] == -1) {// wall
-			return;
-		} else if (grid[coords[0]][coords[1]] == 0 || grid[coords[0]][coords[1]] > curr) {// on path OR already explored
-																							// but with longer path
-			grid[coords[0]][coords[1]] = curr;
-			curr++;
-			setup(new int[] { coords[0] + 1, coords[1] }, curr);// right
-			setup(new int[] { coords[0] - 1, coords[1] }, curr);// left
-			setup(new int[] { coords[0], coords[1] + 1 }, curr);// up
-			setup(new int[] { coords[0], coords[1] - 1 }, curr);// down
-		}
-	}
+//	private void setup(int[] coords, int curr) {
+//		if (coords[0] < 0 || coords[0] >= grid.length - 1) {// out of bounds
+//			return;
+//		} else if (coords[1] < 0 || coords[1] >= grid[coords[0]].length - 1) {// out of bounds
+//			return;
+//		} else if (grid[coords[0]][coords[1]] == -1) {// wall
+//			return;
+//		} else if (grid[coords[0]][coords[1]] == 0 || grid[coords[0]][coords[1]] > curr) {// on path OR already explored
+//																							// but with longer path
+//			grid[coords[0]][coords[1]] = curr;
+//			curr++;
+//			setup(new int[] { coords[0] + 1, coords[1] }, curr);// right
+//			setup(new int[] { coords[0] - 1, coords[1] }, curr);// left
+//			setup(new int[] { coords[0], coords[1] + 1 }, curr);// up
+//			setup(new int[] { coords[0], coords[1] - 1 }, curr);// down
+//		}
+//	}
 
 	// Greedy variant of algorithm above
 	private void setup(int[] coords, int curr) {
