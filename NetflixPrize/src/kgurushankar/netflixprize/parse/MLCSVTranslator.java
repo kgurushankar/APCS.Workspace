@@ -26,8 +26,8 @@ public class MLCSVTranslator {
 		for (String s : mL) {
 			String[] a = CSVUtils.parseLine(s);
 			int id = Integer.parseInt(a[0]);
-			int imdb = (a[1].equals("")) ? -1 : Integer.parseInt(a[1]);
-			int tmdb = (a[2].equals("")) ? -1 : Integer.parseInt(a[2]);
+			String imdb = (a[1].equals("")) ?"" : a[1];
+			String tmdb = (a[2].equals("")) ? "" : a[2];
 			movies.get(id).setLinks(imdb, tmdb);
 		}
 		mL = null;
@@ -50,6 +50,14 @@ public class MLCSVTranslator {
 		mR = null;
 
 		// Tags
+		ArrayList<String> mT = FileIO.readFile(tagFilePath);
+		mT.remove(0);
+		for (String a : mT) {
+			String s[] = CSVUtils.parseLine(a);
+			int movie = Integer.parseInt(s[1]);
+			String tag = s[3];
+			movies.get(movie).addTag(tag);
+		}
 
 		// Final Initializations
 	}

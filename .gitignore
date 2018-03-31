@@ -8,3 +8,9 @@
 *.zip
 
 *\.DS_Store
+
+NetflixPrize/ml-20m/
+
+NetflixPrize/testingDatasets/20Tests\.csv
+
+NetflixPrize/testingDatasets/20Ratings\.csv

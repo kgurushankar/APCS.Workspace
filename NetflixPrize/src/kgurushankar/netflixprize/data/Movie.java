@@ -12,9 +12,10 @@ public class Movie implements Comparable<Movie> {
 	private int id;
 	private String title;
 	private short year;
-	private int imdb;
-	private int tmdb;
+	private String imdb;
+	private String tmdb;
 	private HashMap<User, Float> ratings;
+	private ArrayList<String> tags;
 	private double avg;
 	private double sod;
 
@@ -23,9 +24,10 @@ public class Movie implements Comparable<Movie> {
 		this.id = id;
 		this.year = year2;
 		this.genres = genres;
-		this.imdb = -1;
-		this.tmdb = -1;
+		this.imdb = "";
+		this.tmdb = "";
 		ratings = new HashMap<User, Float>();
+		tags = new ArrayList<String>();
 	}
 
 	public String toString() {
@@ -49,22 +51,21 @@ public class Movie implements Comparable<Movie> {
 		return id;
 	}
 
-	public int getImdbId() {
+	public String getImdb() {
 		return imdb;
 	}
 
-	public int getTmdbId() {
+	public String getTmdb() {
 		return tmdb;
 	}
 
-	public void setLinks(int imdb, int tmdb) {
+	public void setLinks(String imdb, String tmdb) {
 		this.imdb = imdb;
 		this.tmdb = tmdb;
 
 	}
 
 	public String getTitle() {
-		// TODO Auto-generated method stub
 		return this.title;
 	}
 
@@ -116,5 +117,9 @@ public class Movie implements Comparable<Movie> {
 		}
 		double x = sq / (arr.size() - 1);
 		return Math.sqrt(x);
+	}
+
+	public void addTag(String tag) {
+		tags.add(tag);
 	}
 }

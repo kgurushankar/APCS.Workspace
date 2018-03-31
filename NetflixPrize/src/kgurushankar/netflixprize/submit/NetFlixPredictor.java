@@ -1,5 +1,6 @@
 package kgurushankar.netflixprize.submit;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import kgurushankar.netflixprize.data.Movie;
@@ -114,11 +115,30 @@ public class NetFlixPredictor {
 	 * @pre A user with id userID exists in the database.
 	 */
 	public int recommendMovie(int userID) {
-
-		return 0;
+		double high = 0;
+		int id = -1;
+		for (int i : movies.keySet()) {
+			double r = (getRating(userID, i) != -1) ? -1 : guessRating(userID, i);
+			if (r > high) {
+				id = i;
+			}
+		}
+		return id;
 	}
 
 	private double weight(double val) {
 		return 1 / (Math.log(val) * Math.log(val));
+	}
+
+	public ArrayList<Movie> getMovies() {
+		ArrayList<Movie> m = new ArrayList<Movie>();
+		for (int i : movies.keySet()) {
+			m.add(movies.get(i));
+		}
+		return m;
+	}
+
+	public Movie getMovie(int recommendedID) {
+		return movies.get(recommendedID);
 	}
 }
