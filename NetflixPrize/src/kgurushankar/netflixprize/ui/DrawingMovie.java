@@ -36,8 +36,6 @@ public class DrawingMovie {
 			public void run() {
 				BufferedReader in = null;
 				String loc = "";
-				boolean tmdb = true;
-				;
 				try {
 					URL target = new URL("http://www.imdb.com/title/tt" + movie.getImdb() + "/");
 					URLConnection uc = target.openConnection();

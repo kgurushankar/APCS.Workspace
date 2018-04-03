@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 
 import kgurushankar.netflixprize.data.Movie;
 import kgurushankar.netflixprize.parse.FileIO;
-import kgurushankar.netflixprize.submit.NetFlixPredictor;
+import kgurushankar.netflixprize.test.NetFlixPredictor;
 import processing.core.PApplet;
 
 public class DrawingSurface extends PApplet {
@@ -51,9 +51,15 @@ public class DrawingSurface extends PApplet {
 	}
 
 	public void initializePredictor() {
+		PApplet p = this;
 		new Thread() {
 			public void run() {
 				predictor = new NetFlixPredictor(moviesFile, ratingsFile, tagsFile, linksFile);
+
+				int recommendedID = predictor.recommendMovie(currentUserID);
+				Movie m = predictor.getMovie(recommendedID);
+				recommendedMovie = new DrawingMovie(m);
+				recommendedMovie.downloadArt(p);
 
 				predictorLoaded = true;
 			}
@@ -175,11 +181,7 @@ public class DrawingSurface extends PApplet {
 			}
 
 			initializePredictor();
-			if (predictorLoaded) {
-				int recommendedID = predictor.recommendMovie(currentUserID);
-				Movie m = predictor.getMovie(recommendedID);
-				recommendedMovie = new DrawingMovie(m);
-			}
+
 		}
 	}
 

@@ -1,14 +1,15 @@
-package kgurushankar.netflixprize.submit;
+package kgurushankar.netflixprize.test;
+
 
 import java.util.ArrayList;
 import kgurushankar.netflixprize.parse.*;
 
 public class NetflixTester {
 	public static final String folder = "ml-latest-small";
-	public static final String baseFile = "testingDatasets" + FileIO.fileSeparator + "1Ratings.csv";
+	public static final String baseFile = "testingDatasets" + FileIO.fileSeparator + "5Ratings.csv";
 	// public static final String baseFile = folder + FileIO.fileSeparator +
 	// "ratings.csv";
-	public static final String testFile = "testingDatasets" + FileIO.fileSeparator + "1Tests.csv";
+	public static final String testFile = "testingDatasets" + FileIO.fileSeparator + "5Tests.csv";
 
 	public static final String moviesFile = folder + FileIO.fileSeparator + "movies.csv";
 	public static final String linksFile = folder + FileIO.fileSeparator + "links.csv";
