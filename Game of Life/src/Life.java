@@ -16,7 +16,9 @@ import processing.core.PApplet;
  *
  */
 
-public class Life {
+public class Life implements java.io.Serializable {
+
+	private static final long serialVersionUID = -4201338704663555797L;
 	private boolean[][] grid;
 
 	// Constructs an empty grid
@@ -256,4 +258,6 @@ public class Life {
 		}
 		return true;
 	}
+
+
 }

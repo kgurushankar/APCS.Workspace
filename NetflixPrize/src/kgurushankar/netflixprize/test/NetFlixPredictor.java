@@ -1,6 +1,5 @@
 package kgurushankar.netflixprize.test;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -119,11 +118,16 @@ public class NetFlixPredictor {
 		double high = 0;
 		int id = -1;
 		for (int i : movies.keySet()) {
-			double r = (getRating(userID, i) != -1) ? -1 : guessRating(userID, i);
+			if (getRating(userID, i) != -1) {
+				continue;
+			}
+			double r = guessRating(userID, i);
 			if (r > high) {
 				id = i;
+				high = r;
 			}
 		}
+//		System.out.println(id);
 		return id;
 	}
 
