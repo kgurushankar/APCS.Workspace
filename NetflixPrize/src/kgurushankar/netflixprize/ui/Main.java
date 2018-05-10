@@ -4,8 +4,6 @@ package kgurushankar.netflixprize.ui;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
 import processing.awt.PSurfaceAWT;
 import processing.core.PApplet;
 
