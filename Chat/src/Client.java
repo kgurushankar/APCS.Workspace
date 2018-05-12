@@ -1,7 +1,8 @@
 import java.net.*;
+
 import java.io.*;
 
-public class Client implements AutoCloseable {
+public class Client implements AutoCloseable, Runnable {
 	Socket s;
 	private BufferedReader in;
 	private BufferedWriter out;
@@ -9,11 +10,8 @@ public class Client implements AutoCloseable {
 	public Client(String ip, int port) {
 		try {
 			s = new Socket(ip, port);
-			System.out.println(s);
 			in = new BufferedReader(new InputStreamReader(s.getInputStream()));
 			out = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
-			sendData(Integer.toString((int) (Math.random() * Integer.MAX_VALUE)));
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -21,30 +19,28 @@ public class Client implements AutoCloseable {
 
 	public void sendData(String s) {
 		try {
-			out.append(s + '\n');
+
+			out.write(s);
+			out.newLine();
 			out.flush();
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private void listen() {
-		new Thread(new Runnable() {
+	public void run() {
+		try {
+			String line = null;
 
-			@Override
-			public void run() {
-				try {
-					String inputLine;
-					while ((inputLine = in.readLine()) != null) {
-						System.out.println(inputLine);
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+			// while reader line is not empty
+			while ((line = in.readLine()) != null) {
+
+				System.out.println(line);
 			}
-
-		}).run();
-		return;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void close() throws IOException {

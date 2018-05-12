@@ -1,42 +1,53 @@
 import java.io.*;
 import java.net.*;
+import java.rmi.ServerException;
 import java.util.*;
 
 public class Server implements AutoCloseable {
-	private Vector<Connection> connections = new Vector<Connection>();
+	private volatile List<Connection> connections;
 	private ServerSocket s;
 
 	public Server(int port) throws IOException {
 		s = new ServerSocket(port);
-		System.out.println(s);
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				while (!s.isClosed()) {
-					try {
-						Socket c = s.accept();
-						connections.add(new Connection(c));
-						System.out.println(c);
-
-					} catch (IOException e) {
-						e.printStackTrace(System.out);
-					}
-				}
-
-			}
-
-		}, "Connections").run();
+		// connections = new ArrayList<Connection>();
+		connections = new Vector<Connection>();
+		(new Thread(new Accepter(connections), "Connections")).start();
 	}
 
-	public void broadcast(String s, Connection n) {
-		new Thread(new Runnable() {
-			public void run() {
-				System.out.print(s);
-				for (Connection c : connections) {
-					c.sendData(s);
+	private class Accepter implements Runnable {
+		private List<Connection> connections;
+
+		public Accepter(List<Connection> connections) {
+			this.connections = connections;
+		}
+
+		@Override
+		public void run() {
+			while (true) {
+				try {
+					Connection c = new Connection(s.accept());
+					new Thread(c).start();
+					this.connections.add(c);
+					Thread.yield();
+				} catch (ServerException | SocketException e) {
+					e.printStackTrace();
+					System.exit(1);
+				} catch (IOException e) {
+
+					e.printStackTrace(System.out);
 				}
 			}
-		}).run();
+
+		}
+
+	}
+
+	public synchronized void broadcast(String s, Connection me) {
+		for (Connection c : connections) {
+			if (me != c) {
+				c.sendData(s);
+			}
+		}
 
 	}
 
@@ -47,7 +58,7 @@ public class Server implements AutoCloseable {
 		}
 	}
 
-	private class Connection implements AutoCloseable {
+	private class Connection implements AutoCloseable, Runnable {
 		private Socket s;
 		private BufferedReader in;
 		private BufferedWriter out;
@@ -56,39 +67,41 @@ public class Server implements AutoCloseable {
 			this.s = s;
 			in = new BufferedReader(new InputStreamReader(s.getInputStream()));
 			out = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
-			listen();
 		}
 
 		public void sendData(String s) {
 			try {
-				out.append(s + '\n');
+
+				out.write(s);
+				out.newLine();
 				out.flush();
+
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 
-		private void listen() {
-			Connection me = this;
-			new Thread(new Runnable() {
+		public void run() {
+			try {
+				String line = null;
 
-				@Override
-				public void run() {
-					try {
-						String inputLine;
-						while ((inputLine = in.readLine()) != null) {
-							System.out.println(inputLine);
-							broadcast(inputLine, me);
-						}
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+				// while reader line is not empty
+				while ((line = in.readLine()) != null) {
+
+					System.out.println(line);
+					broadcast(line, this);
 				}
-			}).run();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 
 		public void close() throws IOException {
 			s.close();
+		}
+
+		public String toString() {
+			return s.toString();
 		}
 	}
 
